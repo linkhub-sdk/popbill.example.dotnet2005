@@ -6,10 +6,10 @@ namespace Popbill.Taxinvoice.Example.csharp
 {
     public partial class frmExample : Form
     {
-        //링크아이디
+        //연동상담시 발급받은 연동아이디
         private string LinkID = "TESTER";
-        //비밀키
-        private string SecretKey = "63TqM8bB4dPYmfQ5rQU6j+qRfQyJRPMozD42WyGg+Hs=";
+        //연동상담시 발급받은 비밀키
+        private string SecretKey = "OTbVGsQdnLrc8kmmyIXr8W+nX+vDH6tAERiM+DNPFXo=";
 
         private TaxinvoiceService taxinvoiceService;
 
@@ -20,17 +20,37 @@ namespace Popbill.Taxinvoice.Example.csharp
             InitializeComponent();
             //초기화
             taxinvoiceService = new TaxinvoiceService(LinkID, SecretKey);
-            //테스트를 완료한후 아래 변수를 false로 변경하거나, 아래줄을 삭제하여 실제 서비스 연결.
+            //테스트를 완료한후 아래 변수를 false로 변경하거나, 아래줄을 삭제하여 상업용 환경으로 전환
             taxinvoiceService.IsTest = true;
         }
 
-        private void getPopbillURL_Click(object sender, EventArgs e)
+        // 팝빌 로그인 URL 
+        private void btnGetPopbillURL_LOGIN_Click(object sender, EventArgs e)
         {
-            string url = taxinvoiceService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, cboPopbillTOGO.Text);
+            string url = taxinvoiceService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "LOGIN");
 
             MessageBox.Show(url);
         }
 
+
+        // 포인트 충전 팝업 URL
+        private void btnGetPopbillURL_CHRG_Click(object sender, EventArgs e)
+        {
+            string url = taxinvoiceService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "CHRG");
+
+            MessageBox.Show(url);
+        }
+
+        // 공인인증서 등록 팝업 URL
+        private void btnGetPopbillURL_CERT_Click(object sender, EventArgs e)
+        {
+            string url = taxinvoiceService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "CERT");
+
+            MessageBox.Show(url);
+        }
+
+
+        // 회원가입요청
         private void btnJoinMember_Click(object sender, EventArgs e)
         {
             JoinForm joinInfo = new JoinForm();
@@ -65,6 +85,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 잔여포인트 확인
         private void btnGetBalance_Click(object sender, EventArgs e)
         {
 
@@ -82,6 +103,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+
+        // 파트너 잔여포인트 확인
         private void btnGetPartnerBalance_Click(object sender, EventArgs e)
         {
             try
@@ -98,6 +121,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 회원가입여부확인
         private void btnCheckIsMember_Click(object sender, EventArgs e)
         {
             try
@@ -114,6 +138,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 발행단가확인
         private void btnUnitCost_Click(object sender, EventArgs e)
         {
             try
@@ -130,6 +155,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 공인인증서 만료일자 확인
         private void btnGetCertificateExpireDate_Click(object sender, EventArgs e)
         {
             try
@@ -146,6 +172,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        //문서관리번호 사용여부 확인
         private void btnCheckMgtKeyInUse_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType) Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -163,14 +190,21 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 대용량 연계사업자 이메일 목록
         private void btnGetEmailPublicKey_Click(object sender, EventArgs e)
         {
             try
             {
                 List<EmailPublicKey> KeyList = taxinvoiceService.GetEmailPublicKeys(txtCorpNum.Text);
 
-                MessageBox.Show(KeyList.Count.ToString());
+                String tmp = "";
+                 
+                for (int i = 0; i < KeyList.Count; i++)
+                {
+                    tmp += KeyList[i].email + CRLF;
+                }
 
+                MessageBox.Show(tmp);
             }
             catch (PopbillException ex)
             {
@@ -178,11 +212,12 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 임시저장
         private void btnRegister_Click(object sender, EventArgs e)
         {
             Taxinvoice taxinvoice = new Taxinvoice();
 
-            taxinvoice.writeDate = "20150201";                      //필수, 기재상 작성일자
+            taxinvoice.writeDate = "20150203";                      //필수, 기재상 작성일자
             taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
             taxinvoice.issueType = "정발행";                        //필수, {정발행, 역발행, 위수탁}
             taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
@@ -190,7 +225,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             taxinvoice.taxType = "과세";                            //필수, {과세, 영세, 면세}
 
 
-            taxinvoice.invoicerCorpNum = "1231212312";
+            taxinvoice.invoicerCorpNum = "1234567890";
             taxinvoice.invoicerTaxRegID = "";                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
             taxinvoice.invoicerCorpName = "공급자 상호";
             taxinvoice.invoicerMgtKey = txtMgtKey.Text;             //문서관리번호 1~24자리까지 공급자사업자번호별 중복없는 고유번호 할당
@@ -202,7 +237,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             taxinvoice.invoicerEmail = "test@test.com";
             taxinvoice.invoicerTEL = "070-7070-0707";
             taxinvoice.invoicerHP = "010-000-2222";
-            taxinvoice.invoicerSMSSendYN = true;                    //발행시 문자발송기능 사용시 활용
+            taxinvoice.invoicerSMSSendYN = false;                    //발행시 문자발송기능 사용시 활용
 
             taxinvoice.invoiceeType = "사업자";
             taxinvoice.invoiceeCorpNum = "8888888888";
@@ -214,8 +249,9 @@ namespace Popbill.Taxinvoice.Example.csharp
             taxinvoice.invoiceeBizType = "공급받는자 업태";
             taxinvoice.invoiceeContactName1 = "공급받는자 담당자명";
             taxinvoice.invoiceeEmail1 = "test@invoicee.com";
+            taxinvoice.invoiceeSMSSendYN = false;                   //발행시 문자발송기능 사용시 활용
 
-            taxinvoice.supplyCostTotal = "100000";                  //필수 공급가액 합계"
+            taxinvoice.supplyCostTotal = "100000";                  //필수 공급가액 합계
             taxinvoice.taxTotal = "10000";                          //필수 세액 합계
             taxinvoice.totalAmount = "110000";                      //필수 합계금액.  공급가액 + 세액
 
@@ -229,8 +265,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             taxinvoice.remark1 = "비고1";
             taxinvoice.remark2 = "비고2";
             taxinvoice.remark3 = "비고3";
-            taxinvoice.kwon = 1;
-            taxinvoice.ho = 1;
+            taxinvoice.kwon = 1;                                    // 기재상 '권' 항목
+            taxinvoice.ho = 1;                                      // 기재상 '호' 항목
 
             taxinvoice.businessLicenseYN = false;                   //사업자등록증 이미지 첨부시 설정.
             taxinvoice.bankBookYN = false;                          //통장사본 이미지 첨부시 설정.
@@ -241,7 +277,7 @@ namespace Popbill.Taxinvoice.Example.csharp
 
             TaxinvoiceDetail detail = new TaxinvoiceDetail();
 
-            detail.serialNum = 1;                                   //일련번호
+            detail.serialNum = 1;                                   //일련번호, 1~99까지 순차기재
             detail.purchaseDT = "20140319";                         //거래일자
             detail.itemName = "품목명";            
             detail.spec = "규격";
@@ -282,6 +318,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 삭제
         private void btnDelete_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -301,6 +338,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 발행예정
         private void btnSend_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -319,6 +357,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 발행예정 취소
         private void btnCancelSend_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -337,6 +376,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 상세항목 조회
         private void btnGetDetailInfo_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -349,14 +389,47 @@ namespace Popbill.Taxinvoice.Example.csharp
 
                 string tmp = null;
 
-                tmp += "InvoicerCorpNum : " + taxinvoice.invoicerCorpNum + CRLF;
-                tmp += "InvoicerCorpName : " + taxinvoice.invoicerCorpName + CRLF;
-                tmp += "InvoiceeCorpNum : " + taxinvoice.invoiceeCorpNum + CRLF;
-                tmp += "InvoiceeCorpName : " + taxinvoice.invoiceeCorpName + CRLF;
+                tmp += "writeDate : " + taxinvoice.writeDate + CRLF;
+                tmp += "chargeDirection : " + taxinvoice.chargeDirection + CRLF;
+                tmp += "issueType : " + taxinvoice.issueType + CRLF;
+                tmp += "issueTiming : " + taxinvoice.issueTiming + CRLF;
+                tmp += "taxType : " + taxinvoice.taxType + CRLF;
+                tmp += "invoicerCorpNum : " + taxinvoice.invoicerCorpNum + CRLF;
+                tmp += "invoicerMgtKey : " + taxinvoice.invoicerMgtKey + CRLF;
+                tmp += "invoicerCorpName : " + taxinvoice.invoicerCorpName + CRLF;
+                tmp += "invoicerCEOName : " + taxinvoice.invoicerCEOName + CRLF;
+                tmp += "invoicerAddr : " + taxinvoice.invoicerAddr + CRLF;
+                tmp += "invoicerContactName : " + taxinvoice.invoicerContactName + CRLF;
+                tmp += "invoicerTEL : " + taxinvoice.invoicerTEL + CRLF;
+                tmp += "invoicerHP : " + taxinvoice.invoicerHP + CRLF;
+                tmp += "invoicerEmail : " + taxinvoice.invoicerEmail + CRLF;
+                tmp += "invoicerSMSSendYN : " + taxinvoice.invoicerSMSSendYN + CRLF;
+                tmp += "invoiceeCorpNum : " + taxinvoice.invoiceeCorpNum + CRLF;
+                tmp += "invoiceeType : " + taxinvoice.invoiceeType + CRLF;
+                tmp += "invoiceeMgtKey : " + taxinvoice.invoiceeMgtKey + CRLF;
+                tmp += "invoiceeCorpName : " + taxinvoice.invoiceeCorpName + CRLF;
+                tmp += "invoiceeCEOName : " + taxinvoice.invoiceeCEOName + CRLF;
+                tmp += "invoiceeAddr : " + taxinvoice.invoiceeAddr + CRLF;
+                tmp += "invoiceeTEL1 : " + taxinvoice.invoiceeTEL1 + CRLF;
+                tmp += "invoiceeHP1 : " + taxinvoice.invoiceeHP1 + CRLF;
+                tmp += "invoiceeEmail1 : " + taxinvoice.invoiceeEmail1 + CRLF;
+                tmp += "invoiceeSMSSendYN : " + taxinvoice.invoiceeSMSSendYN + CRLF;
+                tmp += "taxTotal : " + taxinvoice.taxTotal + CRLF;
+                tmp += "supplyCostTotal : " + taxinvoice.supplyCostTotal + CRLF;
+                tmp += "totalAmount : " + taxinvoice.totalAmount + CRLF;
+                tmp += "purposeType : " + taxinvoice.purposeType + CRLF;
+                tmp += "serialNum : " + taxinvoice.serialNum + CRLF;
+                tmp += "remark1 : " + taxinvoice.remark1 + CRLF;
+                tmp += "remark2 : " + taxinvoice.remark2 + CRLF;
+                tmp += "remark3 : " + taxinvoice.remark3 + CRLF;
+                tmp += "kwon : " + taxinvoice.kwon + CRLF;
+                tmp += "ho : " + taxinvoice.ho + CRLF;
+                tmp += "businessLicenseYN : " + taxinvoice.businessLicenseYN + CRLF;
+                tmp += "bankBookYN : " + taxinvoice.bankBookYN + CRLF;
+                tmp += "faxsendYN : " + taxinvoice.faxsendYN + CRLF;
+                tmp += "ntsconfirmNum : " + taxinvoice.ntsconfirmNum + CRLF;
 
                 MessageBox.Show(tmp);
-
-
             }
             catch (PopbillException ex)
             {
@@ -364,6 +437,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 전자세금계산서 요약, 상태정보 조회
         private void btnGetInfo_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -420,6 +494,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 임시저장함 URL
         private void btnGetURL_TBOX_Click(object sender, EventArgs e)
         {
             try
@@ -435,6 +510,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+
+        // 매출문서함 URL
         private void btnGetURL_SBOX_Click(object sender, EventArgs e)
         {
             try
@@ -450,6 +527,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 매입문서함 URL
         private void btnGetURL_PBOX_Click(object sender, EventArgs e)
         {
             try
@@ -465,6 +543,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 전자세금계산서 작성 URL
         private void btnGetURL_WRITE_Click(object sender, EventArgs e)
         {
             try
@@ -480,6 +559,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 문서 이력확인
         private void btnGetLogs_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -507,6 +587,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 세금계산서 다량 확인
         private void btnGetInfos_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -514,18 +595,57 @@ namespace Popbill.Taxinvoice.Example.csharp
             List<string> MgtKeyList = new List<string>();
 
             //'최대 1000건.
-            MgtKeyList.Add("1234");
-            MgtKeyList.Add("12345");
+            MgtKeyList.Add("20150209-02");
+            MgtKeyList.Add("20150209-10");
 
             try
             {
                 List<TaxinvoiceInfo> taxinvoiceInfoList = taxinvoiceService.GetInfos(txtCorpNum.Text, KeyType, MgtKeyList);
 
-                //'TOGO Describe it.
+                string tmp = null;
+                
+                for (int i = 0; i < taxinvoiceInfoList.Count; i++)
+                {
+                    if (taxinvoiceInfoList[i].itemKey!=null)
+                    {
+                        tmp += "itemKey : " + taxinvoiceInfoList[i].itemKey + CRLF;
+                        tmp += "taxType : " + taxinvoiceInfoList[i].taxType + CRLF;
+                        tmp += "writeDate : " + taxinvoiceInfoList[i].writeDate + CRLF;
+                        tmp += "regDT : " + taxinvoiceInfoList[i].regDT + CRLF;
 
-                MessageBox.Show(taxinvoiceInfoList.Count.ToString());
+                        tmp += "invoicerCorpName : " + taxinvoiceInfoList[i].invoicerCorpName + CRLF;
+                        tmp += "invoicerCorpNum : " + taxinvoiceInfoList[i].invoicerCorpNum + CRLF;
+                        tmp += "invoicerMgtKey : " + taxinvoiceInfoList[i].invoicerMgtKey + CRLF;
+                        tmp += "invoiceeCorpName : " + taxinvoiceInfoList[i].invoiceeCorpName + CRLF;
+                        tmp += "invoiceeCorpNum : " + taxinvoiceInfoList[i].invoiceeCorpNum + CRLF;
+                        tmp += "invoiceeMgtKey : " + taxinvoiceInfoList[i].invoiceeMgtKey + CRLF;
+                        tmp += "trusteeCorpName : " + taxinvoiceInfoList[i].trusteeCorpName + CRLF;
+                        tmp += "trusteeCorpNum : " + taxinvoiceInfoList[i].trusteeCorpNum + CRLF;
+                        tmp += "trusteeMgtKey : " + taxinvoiceInfoList[i].trusteeMgtKey + CRLF;
 
+                        tmp += "supplyCostTotal : " + taxinvoiceInfoList[i].supplyCostTotal + CRLF;
+                        tmp += "taxTotal : " + taxinvoiceInfoList[i].taxTotal + CRLF;
+                        tmp += "purposeType : " + taxinvoiceInfoList[i].purposeType + CRLF;
+                        tmp += "modifyCode : " + taxinvoiceInfoList[i].modifyCode.ToString() + CRLF;
+                        tmp += "issueType : " + taxinvoiceInfoList[i].issueType + CRLF;
 
+                        tmp += "issueDT : " + taxinvoiceInfoList[i].issueDT + CRLF;
+                        tmp += "preIssueDT : " + taxinvoiceInfoList[i].preIssueDT + CRLF;
+
+                        tmp += "stateCode : " + taxinvoiceInfoList[i].stateCode.ToString() + CRLF;
+                        tmp += "stateDT : " + taxinvoiceInfoList[i].stateDT + CRLF;
+
+                        tmp += "openYN : " + taxinvoiceInfoList[i].openYN.ToString() + CRLF;
+                        tmp += "openDT : " + taxinvoiceInfoList[i].openDT + CRLF;
+                        tmp += "ntsresult : " + taxinvoiceInfoList[i].ntsresult + CRLF;
+                        tmp += "ntsconfirmNum : " + taxinvoiceInfoList[i].ntsconfirmNum + CRLF;
+                        tmp += "ntssendDT : " + taxinvoiceInfoList[i].ntssendDT + CRLF;
+                        tmp += "ntsresultDT : " + taxinvoiceInfoList[i].ntsresultDT + CRLF;
+                        tmp += "ntssendErrCode : " + taxinvoiceInfoList[i].ntssendErrCode + CRLF;
+                        tmp += "stateMemo : " + taxinvoiceInfoList[i].stateMemo+CRLF+CRLF;
+                    }
+                }
+                MessageBox.Show(tmp);
             }
             catch (PopbillException ex)
             {
@@ -534,6 +654,7 @@ namespace Popbill.Taxinvoice.Example.csharp
 
         }
 
+        // 알림메일 재전송
         private void btnSendEmail_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -541,6 +662,7 @@ namespace Popbill.Taxinvoice.Example.csharp
 
             try
             {
+                // SendEmail(사업자번호, 발행유형, 문서관리번호, 수신메일주소, 회원아이디)
                 Response response = taxinvoiceService.SendEmail(txtCorpNum.Text, KeyType, txtMgtKey.Text, "test@test.com", txtUserId.Text);
 
                 MessageBox.Show(response.message);
@@ -553,6 +675,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 알림문자 재전송
         private void btnSendSMS_Click(object sender, EventArgs e)
         {
 
@@ -560,6 +683,8 @@ namespace Popbill.Taxinvoice.Example.csharp
 
             try
             {
+                //알림문자 전송의 경우 메시지 내용이 90Byte를 초과하는 경우 길이가 조정되어 전송됩니다.
+                //SendSMS(사업자번호, 발행유형, 문서관리번호, 발신번호, 수신번호, 발신문자내용, 회원아이디)
                 Response response = taxinvoiceService.SendSMS(txtCorpNum.Text, KeyType, txtMgtKey.Text, "1111-2222", "111-2222-4444", "발신문자 내용...", txtUserId.Text);
 
                 MessageBox.Show(response.message);
@@ -572,12 +697,14 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 세금계산서 팩스 전송
         private void btnSendFAX_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
 
             try
             {
+                //SendFAX(사업자번호, 발행유형, 문서관리번호, 발신번호, 수신팩스번호, 회원아이디)
                 Response response = taxinvoiceService.SendFAX(txtCorpNum.Text, KeyType, txtMgtKey.Text, "1111-2222", "000-2222-4444", txtUserId.Text);
 
                 MessageBox.Show(response.message);
@@ -590,6 +717,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+
+        // 세금계산서 보기 URL
         private void btnGetPopUpURL_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -607,6 +736,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 인쇄 URL
         private void btnGetPrintURL_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -625,6 +755,7 @@ namespace Popbill.Taxinvoice.Example.csharp
 
         }
 
+        // 인쇄 URL(공급받는자용)
         private void btnEPrintURL_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -642,13 +773,14 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 공급받는자 메일 링크 URL
         private void btnGetEmailURL_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
 
             try
             {
-                string url = taxinvoiceService.GetEPrintURL(txtCorpNum.Text, KeyType, txtMgtKey.Text, txtUserId.Text);
+                string url = taxinvoiceService.GetMailURL(txtCorpNum.Text, KeyType, txtMgtKey.Text, txtUserId.Text);
 
                 MessageBox.Show(url);
 
@@ -659,6 +791,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 다량 인쇄 URL
         private void btnGetMassPrintURL_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -666,8 +799,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             List<string> MgtKeyList = new List<string>();
 
             //'최대 1000건.
-            MgtKeyList.Add("1234");
-            MgtKeyList.Add("12345");
+            MgtKeyList.Add("20150209-10");
+            MgtKeyList.Add("20150209-11");
 
             try
             {
@@ -682,6 +815,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 국세청 즉시전송
         private void btnSendToNTS_Click(object sender, EventArgs e)
         {
 
@@ -701,6 +835,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 세금계산서 발행
         private void btnIssue_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -719,6 +854,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 세금계산서 발행취소
         private void btnCancelIssue_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -737,6 +873,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 발행예정 승인
         private void btnAccept_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -755,6 +892,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+
+        // 발행예정 거부
         private void btnDeny_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -773,6 +912,8 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+
+        // 역)발행 요청
         private void btnRequest_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -791,6 +932,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 역)발행 요청 취소
         private void btnCancelRequest_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -809,6 +951,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 역)발행요청 거부
         private void btnRefuse_Click(object sender, EventArgs e)
         {
 
@@ -828,117 +971,12 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
-        private void Button7_Click(object sender, EventArgs e)
-        {
-            MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
-
-            Taxinvoice taxinvoice = new Taxinvoice();
-
-            taxinvoice.writeDate = "20140923";                      //필수, 기재상 작성일자
-            taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
-            taxinvoice.issueType = "정발행";                        //필수, {정발행, 역발행, 위수탁}
-            taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
-            taxinvoice.issueTiming = "직접발행";                    //필수, {직접발행, 승인시자동발행}
-            taxinvoice.taxType = "과세";                            //필수, {과세, 영세, 면세}
-
-
-            taxinvoice.invoicerCorpNum = "1231212312";
-            taxinvoice.invoicerTaxRegID = "";                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
-            taxinvoice.invoicerCorpName = "공급자 상호 수정";
-            taxinvoice.invoicerMgtKey = txtMgtKey.Text;             //문서관리번호 1~24자리까지 공급자사업자번호별 중복없는 고유번호 할당
-            taxinvoice.invoicerCEOName = "공급자 대표자 성명";
-            taxinvoice.invoicerAddr = "공급자 주소";
-            taxinvoice.invoicerBizClass = "공급자 업종";
-            taxinvoice.invoicerBizType = "공급자 업태,업태2";
-            taxinvoice.invoicerContactName = "공급자 담당자명";
-            taxinvoice.invoicerEmail = "test@test.com";
-            taxinvoice.invoicerTEL = "070-7070-0707";
-            taxinvoice.invoicerHP = "010-000-2222";
-            taxinvoice.invoicerSMSSendYN = true;                    //발행시 문자발송기능 사용시 활용
-
-            taxinvoice.invoiceeType = "사업자";
-            taxinvoice.invoiceeCorpNum = "8888888888";
-            taxinvoice.invoiceeCorpName = "공급받는자 상호";
-            taxinvoice.invoiceeMgtKey = "";
-            taxinvoice.invoiceeCEOName = "공급받는자 대표자 성명";
-            taxinvoice.invoiceeAddr = "공급받는자 주소";
-            taxinvoice.invoiceeBizClass = "공급받는자 업종";
-            taxinvoice.invoiceeBizType = "공급받는자 업태";
-            taxinvoice.invoiceeContactName1 = "공급받는자 담당자명";
-            taxinvoice.invoiceeEmail1 = "test@invoicee.com";
-
-            taxinvoice.supplyCostTotal = "100000";                  //필수 공급가액 합계"
-            taxinvoice.taxTotal = "10000";                          //필수 세액 합계
-            taxinvoice.totalAmount = "110000";                      //필수 합계금액.  공급가액 + 세액
-
-            taxinvoice.modifyCode = null;                           //수정세금계산서 작성시 1~6까지 선택기재.
-            taxinvoice.originalTaxinvoiceKey = "";                  //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
-            taxinvoice.serialNum = "123";
-            taxinvoice.cash = "";                                   //현금
-            taxinvoice.chkBill = "";                                //수표
-            taxinvoice.note = "";                                   //어음
-            taxinvoice.credit = "";                                 //외상미수금
-            taxinvoice.remark1 = "비고1";
-            taxinvoice.remark2 = "비고2";
-            taxinvoice.remark3 = "비고3";
-            taxinvoice.kwon = 1;
-            taxinvoice.ho = 1;
-
-            taxinvoice.businessLicenseYN = false;                   //사업자등록증 이미지 첨부시 설정.
-            taxinvoice.bankBookYN = false;                          //통장사본 이미지 첨부시 설정.
-            taxinvoice.faxreceiveNum = "";                          //발행시 Fax발송기능 사용시 수신번호 기재.
-            taxinvoice.faxsendYN = false;                           //발행시 Fax발송시 설정.
-
-            taxinvoice.detailList = new List<TaxinvoiceDetail>();
-
-            TaxinvoiceDetail detail = new TaxinvoiceDetail();
-
-            detail.serialNum = 1;                                   //일련번호
-            detail.purchaseDT = "20140319";                         //거래일자
-            detail.itemName = "품목명";
-            detail.spec = "규격";
-            detail.qty = "1";                                       //수량
-            detail.unitCost = "100000";                             //단가
-            detail.supplyCost = "100000";                           //공급가액
-            detail.tax = "10000";                                   //세액
-            detail.remark = "품목비고";
-
-            taxinvoice.detailList.Add(detail);
-
-            detail = new TaxinvoiceDetail();
-
-            detail.serialNum = 2;
-            detail.itemName = "품목명";
-
-            taxinvoice.detailList.Add(detail);
-
-            taxinvoice.addContactList = new List<TaxinvoiceAddContact>();
-
-            TaxinvoiceAddContact addContact = new TaxinvoiceAddContact();
-
-            addContact.email = "test2@invoicee.com";
-            addContact.contactName = "추가담당자명";
-
-            taxinvoice.addContactList.Add(addContact);
-
-
-            try
-            {
-                Response response = taxinvoiceService.Update(txtCorpNum.Text, KeyType, txtMgtKey.Text, taxinvoice, txtUserId.Text);
-
-                MessageBox.Show(response.message);
-            }
-            catch (PopbillException ex)
-            {
-                MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
-            }
-        }
-
+        // 역)발행 세금계산서 임시저장
         private void btnRegister_Reverse_Click(object sender, EventArgs e)
         {
             Taxinvoice taxinvoice = new Taxinvoice();
 
-            taxinvoice.writeDate = "20140923";                      //필수, 기재상 작성일자
+            taxinvoice.writeDate = "20150203";                      //필수, 기재상 작성일자
             taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
             taxinvoice.issueType = "역발행";                        //필수, {정발행, 역발행, 위수탁}
             taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
@@ -1028,13 +1066,14 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 역)발행 세금계산서 수정
         private void btnUpdate_Reverse_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
 
             Taxinvoice taxinvoice = new Taxinvoice();
 
-            taxinvoice.writeDate = "20140923";                      //필수, 기재상 작성일자
+            taxinvoice.writeDate = "20150204";                      //필수, 기재상 작성일자
             taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
             taxinvoice.issueType = "역발행";                        //필수, {정발행, 역발행, 위수탁}
             taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
@@ -1124,6 +1163,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 첨부파일 추가
         private void btnAttachFile_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -1148,6 +1188,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 첨부파일목록
         private void gtnGetFiles_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -1175,6 +1216,7 @@ namespace Popbill.Taxinvoice.Example.csharp
             }
         }
 
+        // 첨부파일 삭제
         private void btnDeleteFile_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
@@ -1192,6 +1234,113 @@ namespace Popbill.Taxinvoice.Example.csharp
                 MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
             }
 
+        }
+
+        // 세금계산서 수정
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
+
+            Taxinvoice taxinvoice = new Taxinvoice();
+
+            taxinvoice.writeDate = "20150204";                      //필수, 기재상 작성일자
+            taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
+            taxinvoice.issueType = "정발행";                        //필수, {정발행, 역발행, 위수탁}
+            taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
+            taxinvoice.issueTiming = "직접발행";                    //필수, {직접발행, 승인시자동발행}
+            taxinvoice.taxType = "과세";                            //필수, {과세, 영세, 면세}
+
+
+            taxinvoice.invoicerCorpNum = "1234567890";
+            taxinvoice.invoicerTaxRegID = "";                       //종사업자 식별번호. 필요시 기재. 형식은 숫자 4자리.
+            taxinvoice.invoicerCorpName = "공급자 상호 수정";
+            taxinvoice.invoicerMgtKey = txtMgtKey.Text;             //문서관리번호 1~24자리까지 공급자사업자번호별 중복없는 고유번호 할당
+            taxinvoice.invoicerCEOName = "공급자 대표자 성명";
+            taxinvoice.invoicerAddr = "공급자 주소";
+            taxinvoice.invoicerBizClass = "공급자 업종";
+            taxinvoice.invoicerBizType = "공급자 업태,업태2";
+            taxinvoice.invoicerContactName = "공급자 담당자명";
+            taxinvoice.invoicerEmail = "test@test.com";
+            taxinvoice.invoicerTEL = "070-7070-0707";
+            taxinvoice.invoicerHP = "010-000-2222";
+            taxinvoice.invoicerSMSSendYN = true;                    //발행시 문자발송기능 사용시 활용
+
+            taxinvoice.invoiceeType = "사업자";
+            taxinvoice.invoiceeCorpNum = "8888888888";
+            taxinvoice.invoiceeCorpName = "공급받는자 상호";
+            taxinvoice.invoiceeMgtKey = "";
+            taxinvoice.invoiceeCEOName = "공급받는자 대표자 성명";
+            taxinvoice.invoiceeAddr = "공급받는자 주소";
+            taxinvoice.invoiceeBizClass = "공급받는자 업종";
+            taxinvoice.invoiceeBizType = "공급받는자 업태";
+            taxinvoice.invoiceeContactName1 = "공급받는자 담당자명";
+            taxinvoice.invoiceeEmail1 = "test@invoicee.com";
+
+            taxinvoice.supplyCostTotal = "100000";                  //필수 공급가액 합계"
+            taxinvoice.taxTotal = "10000";                          //필수 세액 합계
+            taxinvoice.totalAmount = "110000";                      //필수 합계금액.  공급가액 + 세액
+
+            taxinvoice.modifyCode = null;                           //수정세금계산서 작성시 1~6까지 선택기재.
+            taxinvoice.originalTaxinvoiceKey = "";                  //수정세금계산서 작성시 원본세금계산서의 ItemKey기재. ItemKey는 문서확인.
+            taxinvoice.serialNum = "123";
+            taxinvoice.cash = "";                                   //현금
+            taxinvoice.chkBill = "";                                //수표
+            taxinvoice.note = "";                                   //어음
+            taxinvoice.credit = "";                                 //외상미수금
+            taxinvoice.remark1 = "비고1";
+            taxinvoice.remark2 = "비고2";
+            taxinvoice.remark3 = "비고3";
+            taxinvoice.kwon = 1;
+            taxinvoice.ho = 1;
+
+            taxinvoice.businessLicenseYN = false;                   //사업자등록증 이미지 첨부시 설정.
+            taxinvoice.bankBookYN = false;                          //통장사본 이미지 첨부시 설정.
+            taxinvoice.faxreceiveNum = "";                          //발행시 Fax발송기능 사용시 수신번호 기재.
+            taxinvoice.faxsendYN = false;                           //발행시 Fax발송시 설정.
+
+            taxinvoice.detailList = new List<TaxinvoiceDetail>();
+
+            TaxinvoiceDetail detail = new TaxinvoiceDetail();
+
+            detail.serialNum = 1;                                   //일련번호
+            detail.purchaseDT = "20140319";                         //거래일자
+            detail.itemName = "품목명";
+            detail.spec = "규격";
+            detail.qty = "1";                                       //수량
+            detail.unitCost = "100000";                             //단가
+            detail.supplyCost = "100000";                           //공급가액
+            detail.tax = "10000";                                   //세액
+            detail.remark = "품목비고";
+
+            taxinvoice.detailList.Add(detail);
+
+            detail = new TaxinvoiceDetail();
+
+            detail.serialNum = 2;
+            detail.itemName = "품목명";
+
+            taxinvoice.detailList.Add(detail);
+
+            taxinvoice.addContactList = new List<TaxinvoiceAddContact>();
+
+            TaxinvoiceAddContact addContact = new TaxinvoiceAddContact();
+
+            addContact.email = "test2@invoicee.com";
+            addContact.contactName = "추가담당자명";
+
+            taxinvoice.addContactList.Add(addContact);
+
+
+            try
+            {
+                Response response = taxinvoiceService.Update(txtCorpNum.Text, KeyType, txtMgtKey.Text, taxinvoice, txtUserId.Text);
+
+                MessageBox.Show(response.message);
+            }
+            catch (PopbillException ex)
+            {
+                MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+            }
         }
     }
 }

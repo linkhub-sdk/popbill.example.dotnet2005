@@ -31,8 +31,8 @@
             this.txtUserId = new System.Windows.Forms.TextBox();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
-            this.cboPopbillTOGO = new System.Windows.Forms.ComboBox();
-            this.getPopbillURL = new System.Windows.Forms.Button();
+            this.getPopbillURL_CHRG = new System.Windows.Forms.Button();
+            this.getPopbillURL_LOGIN = new System.Windows.Forms.Button();
             this.GroupBox3 = new System.Windows.Forms.GroupBox();
             this.btnGetPartnerBalance = new System.Windows.Forms.Button();
             this.btnUnitCost = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(143, 21);
             this.txtUserId.TabIndex = 15;
-            this.txtUserId.Text = "userid";
+            this.txtUserId.Text = "testkorea";
             // 
             // GroupBox1
             // 
@@ -87,8 +87,8 @@
             // 
             // GroupBox5
             // 
-            this.GroupBox5.Controls.Add(this.cboPopbillTOGO);
-            this.GroupBox5.Controls.Add(this.getPopbillURL);
+            this.GroupBox5.Controls.Add(this.getPopbillURL_CHRG);
+            this.GroupBox5.Controls.Add(this.getPopbillURL_LOGIN);
             this.GroupBox5.Location = new System.Drawing.Point(423, 17);
             this.GroupBox5.Name = "GroupBox5";
             this.GroupBox5.Size = new System.Drawing.Size(131, 83);
@@ -96,28 +96,25 @@
             this.GroupBox5.TabStop = false;
             this.GroupBox5.Text = "기타";
             // 
-            // cboPopbillTOGO
+            // getPopbillURL_CHRG
             // 
-            this.cboPopbillTOGO.FormattingEnabled = true;
-            this.cboPopbillTOGO.Items.AddRange(new object[] {
-            "LOGIN",
-            "CHRG",
-            "CERT"});
-            this.cboPopbillTOGO.Location = new System.Drawing.Point(6, 20);
-            this.cboPopbillTOGO.Name = "cboPopbillTOGO";
-            this.cboPopbillTOGO.Size = new System.Drawing.Size(118, 20);
-            this.cboPopbillTOGO.TabIndex = 1;
-            this.cboPopbillTOGO.Text = "LOGIN";
+            this.getPopbillURL_CHRG.Location = new System.Drawing.Point(6, 48);
+            this.getPopbillURL_CHRG.Name = "getPopbillURL_CHRG";
+            this.getPopbillURL_CHRG.Size = new System.Drawing.Size(118, 26);
+            this.getPopbillURL_CHRG.TabIndex = 2;
+            this.getPopbillURL_CHRG.Text = "포인트 충전 URL";
+            this.getPopbillURL_CHRG.UseVisualStyleBackColor = true;
+            this.getPopbillURL_CHRG.Click += new System.EventHandler(this.getPopbillURL_CHRG_Click);
             // 
-            // getPopbillURL
+            // getPopbillURL_LOGIN
             // 
-            this.getPopbillURL.Location = new System.Drawing.Point(6, 48);
-            this.getPopbillURL.Name = "getPopbillURL";
-            this.getPopbillURL.Size = new System.Drawing.Size(118, 26);
-            this.getPopbillURL.TabIndex = 0;
-            this.getPopbillURL.Text = "팝빌 URL 확인";
-            this.getPopbillURL.UseVisualStyleBackColor = true;
-            this.getPopbillURL.Click += new System.EventHandler(this.getPopbillURL_Click);
+            this.getPopbillURL_LOGIN.Location = new System.Drawing.Point(6, 16);
+            this.getPopbillURL_LOGIN.Name = "getPopbillURL_LOGIN";
+            this.getPopbillURL_LOGIN.Size = new System.Drawing.Size(118, 26);
+            this.getPopbillURL_LOGIN.TabIndex = 0;
+            this.getPopbillURL_LOGIN.Text = "팝빌 로그인 URL";
+            this.getPopbillURL_LOGIN.UseVisualStyleBackColor = true;
+            this.getPopbillURL_LOGIN.Click += new System.EventHandler(this.getPopbillURL_LOGIN_Click);
             // 
             // GroupBox3
             // 
@@ -207,7 +204,7 @@
             this.txtCorpNum.Name = "txtCorpNum";
             this.txtCorpNum.Size = new System.Drawing.Size(143, 21);
             this.txtCorpNum.TabIndex = 13;
-            this.txtCorpNum.Text = "1231212312";
+            this.txtCorpNum.Text = "1234567890";
             // 
             // Label1
             // 
@@ -232,7 +229,7 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.txtReserveDT);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(6, 143);
+            this.groupBox4.Location = new System.Drawing.Point(6, 145);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(565, 347);
             this.groupBox4.TabIndex = 17;
@@ -359,7 +356,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 499);
+            this.ClientSize = new System.Drawing.Size(581, 505);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.GroupBox1);
@@ -386,8 +383,7 @@
         internal System.Windows.Forms.GroupBox GroupBox1;
         internal System.Windows.Forms.Button btnGetPartnerBalance;
         internal System.Windows.Forms.GroupBox GroupBox5;
-        internal System.Windows.Forms.ComboBox cboPopbillTOGO;
-        internal System.Windows.Forms.Button getPopbillURL;
+        internal System.Windows.Forms.Button getPopbillURL_LOGIN;
         internal System.Windows.Forms.GroupBox GroupBox3;
         internal System.Windows.Forms.Button btnUnitCost;
         internal System.Windows.Forms.Button btnGetBalance;
@@ -411,6 +407,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         internal System.Windows.Forms.OpenFileDialog fileDialog;
+        internal System.Windows.Forms.Button getPopbillURL_CHRG;
     }
 }
 

@@ -39,7 +39,7 @@
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancelIssue = new System.Windows.Forms.Button();
             this.btnIssue = new System.Windows.Forms.Button();
-            this.Button7 = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.btnCancelSend = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
@@ -109,12 +109,13 @@
             this.GroupBox12 = new System.Windows.Forms.GroupBox();
             this.btnGetPrintURL = new System.Windows.Forms.Button();
             this.txtUserId = new System.Windows.Forms.TextBox();
-            this.cboPopbillTOGO = new System.Windows.Forms.ComboBox();
-            this.getPopbillURL = new System.Windows.Forms.Button();
+            this.btnGetPopbillURL_LOGIN = new System.Windows.Forms.Button();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.GroupBox6 = new System.Windows.Forms.GroupBox();
             this.btnGetPartnerBalance = new System.Windows.Forms.Button();
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnGetPopbillURL_CERT = new System.Windows.Forms.Button();
+            this.btnGetPopbillURL_CHRG = new System.Windows.Forms.Button();
             this.Label2 = new System.Windows.Forms.Label();
             this.txtCorpNum = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
@@ -197,7 +198,7 @@
             this.GroupBox8.Controls.Add(this.btnAccept);
             this.GroupBox8.Controls.Add(this.btnCancelIssue);
             this.GroupBox8.Controls.Add(this.btnIssue);
-            this.GroupBox8.Controls.Add(this.Button7);
+            this.GroupBox8.Controls.Add(this.btnUpdate);
             this.GroupBox8.Controls.Add(this.btnRegister);
             this.GroupBox8.Controls.Add(this.btnCancelSend);
             this.GroupBox8.Controls.Add(this.btnSend);
@@ -267,16 +268,16 @@
             this.btnIssue.UseVisualStyleBackColor = false;
             this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
             // 
-            // Button7
+            // btnUpdate
             // 
-            this.Button7.BackColor = System.Drawing.Color.LightCoral;
-            this.Button7.Location = new System.Drawing.Point(142, 23);
-            this.Button7.Name = "Button7";
-            this.Button7.Size = new System.Drawing.Size(50, 25);
-            this.Button7.TabIndex = 6;
-            this.Button7.Text = "수정";
-            this.Button7.UseVisualStyleBackColor = false;
-            this.Button7.Click += new System.EventHandler(this.Button7_Click);
+            this.btnUpdate.BackColor = System.Drawing.Color.LightCoral;
+            this.btnUpdate.Location = new System.Drawing.Point(142, 23);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(50, 25);
+            this.btnUpdate.TabIndex = 6;
+            this.btnUpdate.Text = "수정";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnRegister
             // 
@@ -325,7 +326,7 @@
             // 
             this.Label5.BackColor = System.Drawing.Color.Silver;
             this.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label5.Location = new System.Drawing.Point(11, 17);
             this.Label5.Name = "Label5";
             this.Label5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -338,7 +339,7 @@
             // 
             this.Label6.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label6.Location = new System.Drawing.Point(43, 168);
             this.Label6.Name = "Label6";
             this.Label6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -350,7 +351,7 @@
             // 
             this.Label7.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label7.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label7.Location = new System.Drawing.Point(42, 52);
             this.Label7.Name = "Label7";
             this.Label7.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -362,7 +363,7 @@
             // 
             this.Label8.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label8.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label8.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label8.Location = new System.Drawing.Point(124, 54);
             this.Label8.Name = "Label8";
             this.Label8.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -374,7 +375,7 @@
             // 
             this.Label9.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label9.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label9.Location = new System.Drawing.Point(309, 51);
             this.Label9.Name = "Label9";
             this.Label9.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -386,7 +387,7 @@
             // 
             this.Label11.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label11.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label11.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label11.Location = new System.Drawing.Point(33, 114);
             this.Label11.Name = "Label11";
             this.Label11.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -398,7 +399,7 @@
             // 
             this.Label12.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label12.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label12.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label12.Location = new System.Drawing.Point(71, 123);
             this.Label12.Name = "Label12";
             this.Label12.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -410,7 +411,7 @@
             // 
             this.Label13.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label13.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label13.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label13.Location = new System.Drawing.Point(156, 89);
             this.Label13.Name = "Label13";
             this.Label13.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -422,7 +423,7 @@
             // 
             this.Label14.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label14.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label14.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label14.Location = new System.Drawing.Point(181, 89);
             this.Label14.Name = "Label14";
             this.Label14.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -434,7 +435,7 @@
             // 
             this.Label16.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label16.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label16.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label16.Location = new System.Drawing.Point(276, 89);
             this.Label16.Name = "Label16";
             this.Label16.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -446,7 +447,7 @@
             // 
             this.Label15.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label15.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label15.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label15.Location = new System.Drawing.Point(229, 89);
             this.Label15.Name = "Label15";
             this.Label15.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -458,7 +459,7 @@
             // 
             this.Label17.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label17.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label17.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label17.Location = new System.Drawing.Point(235, 128);
             this.Label17.Name = "Label17";
             this.Label17.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -470,7 +471,7 @@
             // 
             this.Label18.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label18.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label18.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label18.Location = new System.Drawing.Point(262, 128);
             this.Label18.Name = "Label18";
             this.Label18.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -482,7 +483,7 @@
             // 
             this.Label10.BackColor = System.Drawing.Color.Silver;
             this.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label10.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label10.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label10.Location = new System.Drawing.Point(82, 64);
             this.Label10.Name = "Label10";
             this.Label10.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -775,9 +776,9 @@
             this.GroupBox7.Controls.Add(this.cboMgtKeyType);
             this.GroupBox7.Controls.Add(this.txtMgtKey);
             this.GroupBox7.Controls.Add(this.Label3);
-            this.GroupBox7.Location = new System.Drawing.Point(3, 148);
+            this.GroupBox7.Location = new System.Drawing.Point(3, 166);
             this.GroupBox7.Name = "GroupBox7";
-            this.GroupBox7.Size = new System.Drawing.Size(701, 466);
+            this.GroupBox7.Size = new System.Drawing.Size(708, 466);
             this.GroupBox7.TabIndex = 12;
             this.GroupBox7.TabStop = false;
             this.GroupBox7.Text = "전자세금계산서 관련 API";
@@ -896,7 +897,7 @@
             // 
             this.Label19.BackColor = System.Drawing.Color.Silver;
             this.Label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label19.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label19.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label19.Location = new System.Drawing.Point(14, 17);
             this.Label19.Name = "Label19";
             this.Label19.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -909,7 +910,7 @@
             // 
             this.Label20.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label20.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label20.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label20.Location = new System.Drawing.Point(71, 47);
             this.Label20.Name = "Label20";
             this.Label20.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -921,7 +922,7 @@
             // 
             this.Label21.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label21.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label21.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label21.Location = new System.Drawing.Point(53, 163);
             this.Label21.Name = "Label21";
             this.Label21.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -933,7 +934,7 @@
             // 
             this.Label22.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label22.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label22.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label22.Location = new System.Drawing.Point(244, 45);
             this.Label22.Name = "Label22";
             this.Label22.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -945,7 +946,7 @@
             // 
             this.Label23.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label23.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label23.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label23.Location = new System.Drawing.Point(48, 70);
             this.Label23.Name = "Label23";
             this.Label23.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -957,7 +958,7 @@
             // 
             this.Label24.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label24.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label24.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label24.Location = new System.Drawing.Point(48, 93);
             this.Label24.Name = "Label24";
             this.Label24.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -1005,7 +1006,7 @@
             this.btnGetURL_PBOX.Name = "btnGetURL_PBOX";
             this.btnGetURL_PBOX.Size = new System.Drawing.Size(102, 26);
             this.btnGetURL_PBOX.TabIndex = 10;
-            this.btnGetURL_PBOX.Text = "매입보관함";
+            this.btnGetURL_PBOX.Text = "매입문서함";
             this.btnGetURL_PBOX.UseVisualStyleBackColor = true;
             this.btnGetURL_PBOX.Click += new System.EventHandler(this.btnGetURL_PBOX_Click);
             // 
@@ -1015,7 +1016,7 @@
             this.btnGetURL_SBOX.Name = "btnGetURL_SBOX";
             this.btnGetURL_SBOX.Size = new System.Drawing.Size(102, 26);
             this.btnGetURL_SBOX.TabIndex = 9;
-            this.btnGetURL_SBOX.Text = "매출보관함";
+            this.btnGetURL_SBOX.Text = "매출문서함";
             this.btnGetURL_SBOX.UseVisualStyleBackColor = true;
             this.btnGetURL_SBOX.Click += new System.EventHandler(this.btnGetURL_SBOX_Click);
             // 
@@ -1055,34 +1056,21 @@
             // 
             // txtUserId
             // 
-            this.txtUserId.Location = new System.Drawing.Point(317, 1);
+            this.txtUserId.Location = new System.Drawing.Point(318, 5);
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(143, 21);
             this.txtUserId.TabIndex = 10;
-            this.txtUserId.Text = "userid";
+            this.txtUserId.Text = "testkorea";
             // 
-            // cboPopbillTOGO
+            // btnGetPopbillURL_LOGIN
             // 
-            this.cboPopbillTOGO.FormattingEnabled = true;
-            this.cboPopbillTOGO.Items.AddRange(new object[] {
-            "LOGIN",
-            "CHRG",
-            "CERT"});
-            this.cboPopbillTOGO.Location = new System.Drawing.Point(6, 20);
-            this.cboPopbillTOGO.Name = "cboPopbillTOGO";
-            this.cboPopbillTOGO.Size = new System.Drawing.Size(118, 20);
-            this.cboPopbillTOGO.TabIndex = 1;
-            this.cboPopbillTOGO.Text = "LOGIN";
-            // 
-            // getPopbillURL
-            // 
-            this.getPopbillURL.Location = new System.Drawing.Point(6, 51);
-            this.getPopbillURL.Name = "getPopbillURL";
-            this.getPopbillURL.Size = new System.Drawing.Size(118, 26);
-            this.getPopbillURL.TabIndex = 0;
-            this.getPopbillURL.Text = "팝빌 URL 확인";
-            this.getPopbillURL.UseVisualStyleBackColor = true;
-            this.getPopbillURL.Click += new System.EventHandler(this.getPopbillURL_Click);
+            this.btnGetPopbillURL_LOGIN.Location = new System.Drawing.Point(6, 20);
+            this.btnGetPopbillURL_LOGIN.Name = "btnGetPopbillURL_LOGIN";
+            this.btnGetPopbillURL_LOGIN.Size = new System.Drawing.Size(133, 26);
+            this.btnGetPopbillURL_LOGIN.TabIndex = 0;
+            this.btnGetPopbillURL_LOGIN.Text = "팝빌 로그인 URL";
+            this.btnGetPopbillURL_LOGIN.UseVisualStyleBackColor = true;
+            this.btnGetPopbillURL_LOGIN.Click += new System.EventHandler(this.btnGetPopbillURL_LOGIN_Click);
             // 
             // GroupBox1
             // 
@@ -1093,7 +1081,7 @@
             this.GroupBox1.Controls.Add(this.GroupBox2);
             this.GroupBox1.Location = new System.Drawing.Point(3, 28);
             this.GroupBox1.Name = "GroupBox1";
-            this.GroupBox1.Size = new System.Drawing.Size(701, 106);
+            this.GroupBox1.Size = new System.Drawing.Size(709, 138);
             this.GroupBox1.TabIndex = 11;
             this.GroupBox1.TabStop = false;
             this.GroupBox1.Text = "팝빌 기본 API";
@@ -1101,7 +1089,7 @@
             // GroupBox6
             // 
             this.GroupBox6.Controls.Add(this.btnGetPartnerBalance);
-            this.GroupBox6.Location = new System.Drawing.Point(562, 17);
+            this.GroupBox6.Location = new System.Drawing.Point(570, 17);
             this.GroupBox6.Name = "GroupBox6";
             this.GroupBox6.Size = new System.Drawing.Size(131, 83);
             this.GroupBox6.TabIndex = 3;
@@ -1120,19 +1108,40 @@
             // 
             // GroupBox5
             // 
-            this.GroupBox5.Controls.Add(this.cboPopbillTOGO);
-            this.GroupBox5.Controls.Add(this.getPopbillURL);
-            this.GroupBox5.Location = new System.Drawing.Point(423, 17);
+            this.GroupBox5.Controls.Add(this.btnGetPopbillURL_CERT);
+            this.GroupBox5.Controls.Add(this.btnGetPopbillURL_CHRG);
+            this.GroupBox5.Controls.Add(this.btnGetPopbillURL_LOGIN);
+            this.GroupBox5.Location = new System.Drawing.Point(421, 17);
             this.GroupBox5.Name = "GroupBox5";
-            this.GroupBox5.Size = new System.Drawing.Size(131, 83);
+            this.GroupBox5.Size = new System.Drawing.Size(143, 115);
             this.GroupBox5.TabIndex = 2;
             this.GroupBox5.TabStop = false;
             this.GroupBox5.Text = "기타";
             // 
+            // btnGetPopbillURL_CERT
+            // 
+            this.btnGetPopbillURL_CERT.Location = new System.Drawing.Point(6, 83);
+            this.btnGetPopbillURL_CERT.Name = "btnGetPopbillURL_CERT";
+            this.btnGetPopbillURL_CERT.Size = new System.Drawing.Size(133, 26);
+            this.btnGetPopbillURL_CERT.TabIndex = 2;
+            this.btnGetPopbillURL_CERT.Text = "공인인증서 등록 URL";
+            this.btnGetPopbillURL_CERT.UseVisualStyleBackColor = true;
+            this.btnGetPopbillURL_CERT.Click += new System.EventHandler(this.btnGetPopbillURL_CERT_Click);
+            // 
+            // btnGetPopbillURL_CHRG
+            // 
+            this.btnGetPopbillURL_CHRG.Location = new System.Drawing.Point(6, 51);
+            this.btnGetPopbillURL_CHRG.Name = "btnGetPopbillURL_CHRG";
+            this.btnGetPopbillURL_CHRG.Size = new System.Drawing.Size(133, 26);
+            this.btnGetPopbillURL_CHRG.TabIndex = 1;
+            this.btnGetPopbillURL_CHRG.Text = "포인트 충전 URL";
+            this.btnGetPopbillURL_CHRG.UseVisualStyleBackColor = true;
+            this.btnGetPopbillURL_CHRG.Click += new System.EventHandler(this.btnGetPopbillURL_CHRG_Click);
+            // 
             // Label2
             // 
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(238, 6);
+            this.Label2.Location = new System.Drawing.Point(238, 10);
             this.Label2.Name = "Label2";
             this.Label2.Size = new System.Drawing.Size(73, 12);
             this.Label2.TabIndex = 9;
@@ -1140,16 +1149,16 @@
             // 
             // txtCorpNum
             // 
-            this.txtCorpNum.Location = new System.Drawing.Point(76, 1);
+            this.txtCorpNum.Location = new System.Drawing.Point(76, 5);
             this.txtCorpNum.Name = "txtCorpNum";
             this.txtCorpNum.Size = new System.Drawing.Size(143, 21);
             this.txtCorpNum.TabIndex = 8;
-            this.txtCorpNum.Text = "1231212312";
+            this.txtCorpNum.Text = "1234567890";
             // 
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(3, 6);
+            this.Label1.Location = new System.Drawing.Point(3, 10);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(77, 12);
             this.Label1.TabIndex = 7;
@@ -1163,7 +1172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 620);
+            this.ClientSize = new System.Drawing.Size(717, 643);
             this.Controls.Add(this.GroupBox7);
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.GroupBox1);
@@ -1206,7 +1215,7 @@
         internal System.Windows.Forms.Button btnAccept;
         internal System.Windows.Forms.Button btnCancelIssue;
         internal System.Windows.Forms.Button btnIssue;
-        internal System.Windows.Forms.Button Button7;
+        internal System.Windows.Forms.Button btnUpdate;
         internal System.Windows.Forms.Button btnRegister;
         internal System.Windows.Forms.Button btnCancelSend;
         internal System.Windows.Forms.Button btnSend;
@@ -1276,8 +1285,7 @@
         internal System.Windows.Forms.GroupBox GroupBox12;
         internal System.Windows.Forms.Button btnGetPrintURL;
         internal System.Windows.Forms.TextBox txtUserId;
-        internal System.Windows.Forms.ComboBox cboPopbillTOGO;
-        internal System.Windows.Forms.Button getPopbillURL;
+        internal System.Windows.Forms.Button btnGetPopbillURL_LOGIN;
         internal System.Windows.Forms.GroupBox GroupBox1;
         internal System.Windows.Forms.GroupBox GroupBox6;
         internal System.Windows.Forms.Button btnGetPartnerBalance;
@@ -1286,6 +1294,8 @@
         internal System.Windows.Forms.TextBox txtCorpNum;
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.OpenFileDialog fileDialog;
+        internal System.Windows.Forms.Button btnGetPopbillURL_CERT;
+        internal System.Windows.Forms.Button btnGetPopbillURL_CHRG;
     }
 }
 

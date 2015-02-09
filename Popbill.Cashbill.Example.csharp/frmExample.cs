@@ -7,10 +7,10 @@ namespace Popbill.Cashbill.Example.csharp
 {
     public partial class frmExample : Form
     {
-        //링크아이디
+        //연동회원 상담시 발급받은 연동아이디
         private string LinkID = "TESTER";
-        //비밀키
-        private string SecretKey = "Oafp98tjXpqjzPZRBL9lB1RsXR9zodOxCoPue7PfsQc=";
+        //연동회원 상담시 발급받은 비밀키
+        private string SecretKey = "OTbVGsQdnLrc8kmmyIXr8W+nX+vDH6tAERiM+DNPFXo=";
 
         private CashbillService cashbillService;
 
@@ -25,12 +25,13 @@ namespace Popbill.Cashbill.Example.csharp
             cashbillService.IsTest = true;
         }
 
-        private void getPopbillURL_Click(object sender, EventArgs e)
+
+        // 팝빌 로그인 URL
+        private void btnGetPopbillURL_LOGIN_Click(object sender, EventArgs e)
         {
-            
             try
             {
-                string url = cashbillService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, cboPopbillTOGO.Text);
+                string url = cashbillService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "LOGIN");
 
                 MessageBox.Show(url);
             }
@@ -39,8 +40,25 @@ namespace Popbill.Cashbill.Example.csharp
                 MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
 
             }
-        }
+        }      
 
+        // 포인트충전 팝업 URL
+        private void btnGetPopbillURL_CHRG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = cashbillService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "CHRG");
+
+                MessageBox.Show(url);
+            }
+            catch (PopbillException ex)
+            {
+                MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+
+            }
+       }
+
+        // 연동회원가입
         private void btnJoinMember_Click(object sender, EventArgs e)
         {
             JoinForm joinInfo = new JoinForm();
@@ -75,6 +93,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 잔여포인트 조회
         private void btnGetBalance_Click(object sender, EventArgs e)
         {
 
@@ -92,6 +111,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 파트너 잔여포인트 조회
         private void btnGetPartnerBalance_Click(object sender, EventArgs e)
         {
             try
@@ -108,6 +128,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 회원가입여부확인
         private void btnCheckIsMember_Click(object sender, EventArgs e)
         {
             try
@@ -124,6 +146,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 발행단가 확인
         private void btnUnitCost_Click(object sender, EventArgs e)
         {
             try
@@ -140,9 +163,9 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 문서관리번호 사용유무 확인
         private void btnCheckMgtKeyInUse_Click(object sender, EventArgs e)
         {
-        
             try
             {
                 bool InUse = cashbillService.CheckMgtKeyInUse(txtCorpNum.Text, txtMgtKey.Text);
@@ -156,31 +179,31 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 현금영수증 임시저장
         private void btnRegister_Click(object sender, EventArgs e)
         {
             Cashbill cashbill = new Cashbill();
 
-                           
-            cashbill.mgtKey = txtMgtKey.Text;        //발행자별 고유번호 할당, 1~24자리 영문,숫자조합으로 중복없이 구성.
-            cashbill.tradeType = "승인거래";         //승인거래 or 취소거래
-            cashbill.franchiseCorpNum = txtCorpNum.Text;
+            cashbill.mgtKey = txtMgtKey.Text;            // 문서관리번호, 발행자별 고유번호 할당, 1~24자리 영문,숫자조합으로 중복없이 구성.
+            cashbill.tradeType = "승인거래";             // 승인거래 or 취소거래
+            cashbill.franchiseCorpNum = txtCorpNum.Text; // 가맹점 사업자번호
             cashbill.franchiseCorpName = "발행자 상호";
             cashbill.franchiseCEOName = "발행자 대표자";
             cashbill.franchiseAddr = "발행자 주소";
             cashbill.franchiseTEL = "070-1234-1234";
-            cashbill.identityNum = "01041680206";
+            cashbill.identityNum = "01041680206";      // 거래처 식별번호
             cashbill.customerName = "고객명";
             cashbill.itemName = "상품명";
             cashbill.orderNumber = "주문번호";
             cashbill.email = "test@test.com";
             cashbill.hp = "111-1234-1234";
             cashbill.fax = "777-444-3333";
-            cashbill.serviceFee = "0";
-            cashbill.supplyCost = "10000";
-            cashbill.tax = "1000";
-            cashbill.totalAmount = "11000";
-            cashbill.tradeUsage = "소득공제용";      //소득공제용 or 지출증빙용
-            cashbill.taxationType = "과세";          //과세 or 비과세
+            cashbill.serviceFee = "0";              // 봉사료
+            cashbill.supplyCost = "10000";          // 공급가액
+            cashbill.tax = "1000";                  // 세액
+            cashbill.totalAmount = "11000";         // 합계금액
+            cashbill.tradeUsage = "소득공제용";     // 소득공제용 or 지출증빙용
+            cashbill.taxationType = "과세";         // 세 or 비과세
 
             cashbill.smssendYN =  false;
           
@@ -196,6 +219,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 삭제
         private void btnDelete_Click(object sender, EventArgs e)
         {
          
@@ -213,6 +238,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 현금영수증 상세항목 확인
         private void btnGetDetailInfo_Click(object sender, EventArgs e)
         {
 
@@ -223,12 +249,32 @@ namespace Popbill.Cashbill.Example.csharp
                 //자세한 문세정보는 작성시 항목을 참조하거나, 연동메뉴얼 참조.
 
                 string tmp = null;
+                tmp += "mgtKey: " + cashbill.mgtKey + CRLF;
+                tmp += "tradeDate : " + cashbill.tradeDate  + CRLF;
+                tmp += "tradeUsage : " + cashbill.tradeUsage  + CRLF;
+                tmp += "tradeType : " + cashbill.tradeType  + CRLF;
+                tmp += "taxationType : " + cashbill.taxationType  + CRLF;
+                tmp += "supplyCost : " + cashbill.supplyCost  + CRLF;
+                tmp += "tax : " + cashbill.tax  + CRLF;
+                tmp += "serviceFee : " + cashbill.serviceFee  + CRLF;
+                tmp += "totalAmount : " + cashbill.totalAmount  + CRLF;
 
-                tmp += "franchiseCorpNum : " + cashbill.franchiseCorpNum + CRLF;
-                tmp += "franchiseCorpName : " + cashbill.franchiseCorpName + CRLF;
-                tmp += "identityNum : " + cashbill.identityNum + CRLF;
-                tmp += "customerName : " + cashbill.customerName + CRLF;
-
+                tmp += "franchiseCorpNum : " + cashbill.franchiseCorpNum  + CRLF;
+                tmp += "franchiseCorpName : " + cashbill.franchiseCorpName  + CRLF;
+                tmp += "franchiseCEOName : " + cashbill.franchiseCEOName  + CRLF;
+                tmp += "franchiseAddr : " + cashbill.franchiseAddr  + CRLF;
+                tmp += "franchiseTEL : " + cashbill.franchiseTEL  + CRLF;
+                
+                tmp += "identityNum : " + cashbill.identityNum  + CRLF;
+                tmp += "customerName : " + cashbill.customerName  + CRLF;
+                tmp += "itemName : " + cashbill.itemName  + CRLF;
+                tmp += "orderNumber : " + cashbill.orderNumber  + CRLF;
+                tmp += "email : " + cashbill.email  + CRLF;
+                tmp += "hp : " + cashbill.hp  + CRLF;
+                
+                tmp += "smssendYN : " + cashbill.smssendYN  + CRLF;
+                tmp += "faxsendYN : " + cashbill.faxsendYN  + CRLF;
+                
                 MessageBox.Show(tmp);
 
 
@@ -239,6 +285,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 요약,상태정보 확인
         private void btnGetInfo_Click(object sender, EventArgs e)
         {
          
@@ -256,7 +304,7 @@ namespace Popbill.Cashbill.Example.csharp
                 tmp += "itemName : " + cashbillInfo.itemName + CRLF;
                 tmp += "identityNum : " + cashbillInfo.identityNum + CRLF;
                 tmp += "taxationType : " + cashbillInfo.taxationType + CRLF;
-
+               
                 tmp += "totalAmount : " + cashbillInfo.totalAmount + CRLF;
                 tmp += "tradeUsage : " + cashbillInfo.tradeUsage + CRLF;
                 tmp += "tradeType : " + cashbillInfo.tradeType + CRLF;
@@ -286,6 +334,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 임시문서함 URL
         private void btnGetURL_TBOX_Click(object sender, EventArgs e)
         {
             try
@@ -301,6 +351,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 발행문서함 URL
         private void btnGetURL_SBOX_Click(object sender, EventArgs e)
         {
             try
@@ -315,7 +367,8 @@ namespace Popbill.Cashbill.Example.csharp
                 MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
             }
         }
-
+        
+        // 현금영수증 작성 URL
         private void btnGetURL_WRITE_Click(object sender, EventArgs e)
         {
             try
@@ -331,6 +384,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 이력확인
         private void btnGetLogs_Click(object sender, EventArgs e)
         {
         
@@ -357,22 +412,56 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 다량 현금영수증 조회
         private void btnGetInfos_Click(object sender, EventArgs e)
         {
         
             List<string> MgtKeyList = new List<string>();
 
             //'최대 1000건.
-            MgtKeyList.Add("1234");
-            MgtKeyList.Add("12345");
+            MgtKeyList.Add("20150209-01");
+            MgtKeyList.Add("20150209-02");
+            MgtKeyList.Add("20150209-03");
+            MgtKeyList.Add("20150209-10");
 
             try
             {
                 List<CashbillInfo> cashbillInfoList = cashbillService.GetInfos(txtCorpNum.Text, MgtKeyList);
 
-                //'TOGO Describe it.
+                string tmp = null;
+                for (int i = 0; i < cashbillInfoList.Count; i++)
+                {
+                    tmp += "itemKey : " + cashbillInfoList[i].itemKey + CRLF;
+                    tmp += "mgtKey : " + cashbillInfoList[i].mgtKey + CRLF;
+                    tmp += "tradeDate : " + cashbillInfoList[i].tradeDate + CRLF;
+                    tmp += "issueDT : " + cashbillInfoList[i].issueDT + CRLF;
+                    tmp += "customerName : " + cashbillInfoList[i].customerName + CRLF;
+                    tmp += "itemName : " + cashbillInfoList[i].itemName + CRLF;
+                    tmp += "identityNum : " + cashbillInfoList[i].identityNum + CRLF;
+                    tmp += "taxationType : " + cashbillInfoList[i].taxationType + CRLF;
 
-                MessageBox.Show(cashbillInfoList.Count.ToString());
+                    tmp += "totalAmount : " + cashbillInfoList[i].totalAmount + CRLF;
+                    tmp += "tradeUsage : " + cashbillInfoList[i].tradeUsage + CRLF;
+                    tmp += "tradeType : " + cashbillInfoList[i].tradeType + CRLF;
+                    tmp += "stateCode : " + cashbillInfoList[i].stateCode + CRLF;
+                    tmp += "stateDT : " + cashbillInfoList[i].stateDT + CRLF;
+                    tmp += "printYN : " + cashbillInfoList[i].printYN + CRLF;
+
+                    tmp += "confirmNum : " + cashbillInfoList[i].confirmNum + CRLF;
+                    tmp += "orgTradeDate : " + cashbillInfoList[i].orgTradeDate + CRLF;
+                    tmp += "orgConfirmNum : " + cashbillInfoList[i].orgConfirmNum + CRLF;
+
+                    tmp += "ntssendDT : " + cashbillInfoList[i].ntssendDT + CRLF;
+                    tmp += "ntsresult : " + cashbillInfoList[i].ntsresult + CRLF;
+                    tmp += "ntsresultDT : " + cashbillInfoList[i].ntsresultDT + CRLF;
+                    tmp += "ntsresultCode : " + cashbillInfoList[i].ntsresultCode + CRLF;
+                    tmp += "ntsresultMessage : " + cashbillInfoList[i].ntsresultMessage + CRLF;
+
+                    tmp += "regDT : " + cashbillInfoList[i].regDT+CRLF+CRLF;
+                }
+
+                MessageBox.Show(tmp);
 
 
             }
@@ -383,11 +472,14 @@ namespace Popbill.Cashbill.Example.csharp
 
         }
 
+
+        // 알림메일 재전송
         private void btnSendEmail_Click(object sender, EventArgs e)
         {
           
             try
             {
+                //SendEmail(사업자번호, 문서관리번호, 수신이메일주소, 회원아이디)
                 Response response = cashbillService.SendEmail(txtCorpNum.Text, txtMgtKey.Text, "test@test.com", txtUserId.Text);
 
                 MessageBox.Show(response.message);
@@ -400,12 +492,15 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 알림문자 재전송
         private void btnSendSMS_Click(object sender, EventArgs e)
         {
 
             try
             {
-                Response response = cashbillService.SendSMS(txtCorpNum.Text, txtMgtKey.Text, "1111-2222", "111-2222-4444", "발신문자 내용...", txtUserId.Text);
+                //SendSMS(사업자번호, 문서관리번호, 발신번호, 수신번호, 메시지내용, 회원아이디)
+                //메시지내용이 90Byte이상인경우 메시지의 길이가 조정되어 전송됩니다.
+                Response response = cashbillService.SendSMS(txtCorpNum.Text, txtMgtKey.Text, "1111-2222", "010-111-222", "발신문자 내용...", txtUserId.Text);
 
                 MessageBox.Show(response.message);
 
@@ -417,11 +512,14 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 팩스 전송
         private void btnSendFAX_Click(object sender, EventArgs e)
         {
             try
             {
-                Response response = cashbillService.SendFAX(txtCorpNum.Text, txtMgtKey.Text, "1111-2222", "000-2222-4444", txtUserId.Text);
+                //SendFAX(사업자번호, 문서관리번호, 발신번호, 수신팩스번호, 회원아이디)
+                Response response = cashbillService.SendFAX(txtCorpNum.Text, txtMgtKey.Text, "1111-2222", "000-1111-2222", txtUserId.Text);
 
                 MessageBox.Show(response.message);
 
@@ -433,6 +531,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+        // 현금영수증 보기 URL
         private void btnGetPopUpURL_Click(object sender, EventArgs e)
         {
             try
@@ -448,6 +547,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 프린트 URL
         private void btnGetPrintURL_Click(object sender, EventArgs e)
         {
             try
@@ -464,6 +565,7 @@ namespace Popbill.Cashbill.Example.csharp
 
         }
 
+        // 현금영수증 프린트 URL(공급받는자용)
         private void btnEPrintURL_Click(object sender, EventArgs e)
         {
           
@@ -480,11 +582,13 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 현금영수증 메일 링크 URL
         private void btnGetEmailURL_Click(object sender, EventArgs e)
         {
             try
             {
-                string url = cashbillService.GetEPrintURL(txtCorpNum.Text,  txtMgtKey.Text, txtUserId.Text);
+                string url = cashbillService.GetMailURL(txtCorpNum.Text,  txtMgtKey.Text, txtUserId.Text);
 
                 MessageBox.Show(url);
 
@@ -495,14 +599,16 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 다량 현금영수증 인쇄 URL
         private void btnGetMassPrintURL_Click(object sender, EventArgs e)
         {
           
             List<string> MgtKeyList = new List<string>();
 
             //'최대 1000건.
-            MgtKeyList.Add("1234");
-            MgtKeyList.Add("12345");
+            MgtKeyList.Add("20150209-14");
+            MgtKeyList.Add("20150209-03");
 
             try
             {
@@ -517,7 +623,7 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
-    
+        // 발행
         private void btnIssue_Click(object sender, EventArgs e)
         {
           
@@ -535,6 +641,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
+
+        // 발행취소
         private void btnCancelIssue_Click(object sender, EventArgs e)
         {
           
@@ -552,9 +660,8 @@ namespace Popbill.Cashbill.Example.csharp
             }
         }
 
-        private void Button7_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
-
             Cashbill cashbill = new Cashbill();
 
             cashbill.mgtKey = txtMgtKey.Text;        //발행자별 고유번호 할당, 1~24자리 영문,숫자조합으로 중복없이 구성.

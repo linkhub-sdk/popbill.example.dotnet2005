@@ -34,7 +34,7 @@
             this.GroupBox8 = new System.Windows.Forms.GroupBox();
             this.btnCancelIssue = new System.Windows.Forms.Button();
             this.btnIssue = new System.Windows.Forms.Button();
-            this.Button7 = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.Label5 = new System.Windows.Forms.Label();
@@ -68,16 +68,15 @@
             this.GroupBox12 = new System.Windows.Forms.GroupBox();
             this.btnGetPrintURL = new System.Windows.Forms.Button();
             this.txtUserId = new System.Windows.Forms.TextBox();
-            this.cboPopbillTOGO = new System.Windows.Forms.ComboBox();
-            this.getPopbillURL = new System.Windows.Forms.Button();
+            this.btnGetPopbillURL_LOGIN = new System.Windows.Forms.Button();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.GroupBox6 = new System.Windows.Forms.GroupBox();
             this.btnGetPartnerBalance = new System.Windows.Forms.Button();
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnGetPopbillURL_CHRG = new System.Windows.Forms.Button();
             this.Label2 = new System.Windows.Forms.Label();
             this.txtCorpNum = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
-            this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.GroupBox8.SuspendLayout();
             this.GroupBox9.SuspendLayout();
             this.GroupBox11.SuspendLayout();
@@ -125,7 +124,7 @@
             // 
             this.GroupBox8.Controls.Add(this.btnCancelIssue);
             this.GroupBox8.Controls.Add(this.btnIssue);
-            this.GroupBox8.Controls.Add(this.Button7);
+            this.GroupBox8.Controls.Add(this.btnUpdate);
             this.GroupBox8.Controls.Add(this.btnRegister);
             this.GroupBox8.Controls.Add(this.btnDelete);
             this.GroupBox8.Controls.Add(this.Label5);
@@ -161,16 +160,16 @@
             this.btnIssue.UseVisualStyleBackColor = false;
             this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
             // 
-            // Button7
+            // btnUpdate
             // 
-            this.Button7.BackColor = System.Drawing.Color.LightCoral;
-            this.Button7.Location = new System.Drawing.Point(142, 23);
-            this.Button7.Name = "Button7";
-            this.Button7.Size = new System.Drawing.Size(50, 25);
-            this.Button7.TabIndex = 6;
-            this.Button7.Text = "수정";
-            this.Button7.UseVisualStyleBackColor = false;
-            this.Button7.Click += new System.EventHandler(this.Button7_Click);
+            this.btnUpdate.BackColor = System.Drawing.Color.LightCoral;
+            this.btnUpdate.Location = new System.Drawing.Point(142, 23);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(50, 25);
+            this.btnUpdate.TabIndex = 6;
+            this.btnUpdate.Text = "수정";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnRegister
             // 
@@ -197,7 +196,7 @@
             // 
             this.Label5.BackColor = System.Drawing.Color.Silver;
             this.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label5.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label5.Location = new System.Drawing.Point(11, 17);
             this.Label5.Name = "Label5";
             this.Label5.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -210,7 +209,7 @@
             // 
             this.Label6.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label6.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label6.Location = new System.Drawing.Point(43, 122);
             this.Label6.Name = "Label6";
             this.Label6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -222,7 +221,7 @@
             // 
             this.Label7.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label7.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label7.Location = new System.Drawing.Point(42, 52);
             this.Label7.Name = "Label7";
             this.Label7.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -234,7 +233,7 @@
             // 
             this.Label9.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Label9.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Label9.Font = new System.Drawing.Font("Gulim", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Label9.Location = new System.Drawing.Point(154, 47);
             this.Label9.Name = "Label9";
             this.Label9.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -524,30 +523,17 @@
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(143, 21);
             this.txtUserId.TabIndex = 10;
-            this.txtUserId.Text = "userid";
+            this.txtUserId.Text = "testkorea";
             // 
-            // cboPopbillTOGO
+            // btnGetPopbillURL_LOGIN
             // 
-            this.cboPopbillTOGO.FormattingEnabled = true;
-            this.cboPopbillTOGO.Items.AddRange(new object[] {
-            "LOGIN",
-            "CHRG",
-            "CERT"});
-            this.cboPopbillTOGO.Location = new System.Drawing.Point(6, 20);
-            this.cboPopbillTOGO.Name = "cboPopbillTOGO";
-            this.cboPopbillTOGO.Size = new System.Drawing.Size(118, 20);
-            this.cboPopbillTOGO.TabIndex = 1;
-            this.cboPopbillTOGO.Text = "LOGIN";
-            // 
-            // getPopbillURL
-            // 
-            this.getPopbillURL.Location = new System.Drawing.Point(6, 51);
-            this.getPopbillURL.Name = "getPopbillURL";
-            this.getPopbillURL.Size = new System.Drawing.Size(118, 26);
-            this.getPopbillURL.TabIndex = 0;
-            this.getPopbillURL.Text = "팝빌 URL 확인";
-            this.getPopbillURL.UseVisualStyleBackColor = true;
-            this.getPopbillURL.Click += new System.EventHandler(this.getPopbillURL_Click);
+            this.btnGetPopbillURL_LOGIN.Location = new System.Drawing.Point(6, 19);
+            this.btnGetPopbillURL_LOGIN.Name = "btnGetPopbillURL_LOGIN";
+            this.btnGetPopbillURL_LOGIN.Size = new System.Drawing.Size(118, 26);
+            this.btnGetPopbillURL_LOGIN.TabIndex = 0;
+            this.btnGetPopbillURL_LOGIN.Text = "팝빌 로그인 URL";
+            this.btnGetPopbillURL_LOGIN.UseVisualStyleBackColor = true;
+            this.btnGetPopbillURL_LOGIN.Click += new System.EventHandler(this.btnGetPopbillURL_LOGIN_Click);
             // 
             // GroupBox1
             // 
@@ -584,14 +570,24 @@
             // 
             // GroupBox5
             // 
-            this.GroupBox5.Controls.Add(this.cboPopbillTOGO);
-            this.GroupBox5.Controls.Add(this.getPopbillURL);
+            this.GroupBox5.Controls.Add(this.btnGetPopbillURL_CHRG);
+            this.GroupBox5.Controls.Add(this.btnGetPopbillURL_LOGIN);
             this.GroupBox5.Location = new System.Drawing.Point(284, 17);
             this.GroupBox5.Name = "GroupBox5";
             this.GroupBox5.Size = new System.Drawing.Size(131, 83);
             this.GroupBox5.TabIndex = 2;
             this.GroupBox5.TabStop = false;
             this.GroupBox5.Text = "기타";
+            // 
+            // btnGetPopbillURL_CHRG
+            // 
+            this.btnGetPopbillURL_CHRG.Location = new System.Drawing.Point(6, 51);
+            this.btnGetPopbillURL_CHRG.Name = "btnGetPopbillURL_CHRG";
+            this.btnGetPopbillURL_CHRG.Size = new System.Drawing.Size(118, 26);
+            this.btnGetPopbillURL_CHRG.TabIndex = 2;
+            this.btnGetPopbillURL_CHRG.Text = "포인트 충전 URL";
+            this.btnGetPopbillURL_CHRG.UseVisualStyleBackColor = true;
+            this.btnGetPopbillURL_CHRG.Click += new System.EventHandler(this.btnGetPopbillURL_CHRG_Click);
             // 
             // Label2
             // 
@@ -608,7 +604,7 @@
             this.txtCorpNum.Name = "txtCorpNum";
             this.txtCorpNum.Size = new System.Drawing.Size(143, 21);
             this.txtCorpNum.TabIndex = 8;
-            this.txtCorpNum.Text = "1231212312";
+            this.txtCorpNum.Text = "1234567890";
             // 
             // Label1
             // 
@@ -619,15 +615,11 @@
             this.Label1.TabIndex = 7;
             this.Label1.Text = "사업자번호 : ";
             // 
-            // fileDialog
-            // 
-            this.fileDialog.FileName = "OpenFileDialog1";
-            // 
             // frmExample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 543);
+            this.ClientSize = new System.Drawing.Size(570, 545);
             this.Controls.Add(this.GroupBox7);
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.GroupBox1);
@@ -661,7 +653,7 @@
         internal System.Windows.Forms.GroupBox GroupBox8;
         internal System.Windows.Forms.Button btnCancelIssue;
         internal System.Windows.Forms.Button btnIssue;
-        internal System.Windows.Forms.Button Button7;
+        internal System.Windows.Forms.Button btnUpdate;
         internal System.Windows.Forms.Button btnRegister;
         internal System.Windows.Forms.Button btnDelete;
         internal System.Windows.Forms.Label Label5;
@@ -695,8 +687,7 @@
         internal System.Windows.Forms.GroupBox GroupBox12;
         internal System.Windows.Forms.Button btnGetPrintURL;
         internal System.Windows.Forms.TextBox txtUserId;
-        internal System.Windows.Forms.ComboBox cboPopbillTOGO;
-        internal System.Windows.Forms.Button getPopbillURL;
+        internal System.Windows.Forms.Button btnGetPopbillURL_LOGIN;
         internal System.Windows.Forms.GroupBox GroupBox1;
         internal System.Windows.Forms.GroupBox GroupBox6;
         internal System.Windows.Forms.Button btnGetPartnerBalance;
@@ -704,7 +695,7 @@
         internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.TextBox txtCorpNum;
         internal System.Windows.Forms.Label Label1;
-        internal System.Windows.Forms.OpenFileDialog fileDialog;
+        internal System.Windows.Forms.Button btnGetPopbillURL_CHRG;
     }
 }
 

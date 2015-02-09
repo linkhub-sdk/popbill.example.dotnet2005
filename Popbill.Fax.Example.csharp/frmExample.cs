@@ -11,10 +11,10 @@ namespace Popbill.Fax.Example.csharp
 {
     public partial class frmExample : Form
     {
-        //링크아이디
+        //연동상담시 발급받은 연동아이디
         private string LinkID = "TESTER";
-        //비밀키
-        private string SecretKey = "63TqM8bB4dPYmfQ5rQU6j+qRfQyJRPMozD42WyGg+Hs=";
+        //연동상담시 발급받은 비밀키
+        private string SecretKey = "OTbVGsQdnLrc8kmmyIXr8W+nX+vDH6tAERiM+DNPFXo=";
 
         private FaxService faxService;
 
@@ -26,15 +26,33 @@ namespace Popbill.Fax.Example.csharp
 
             //초기화
             faxService = new FaxService(LinkID, SecretKey);
-            //테스트를 완료한후 아래 변수를 false로 변경하거나, 아래줄을 삭제하여 실제 서비스 연결.
+            //테스트를 완료한후 아래 변수를 false로 변경하거나, 아래줄을 삭제하여 상업용 환경으로 전환.
             faxService.IsTest = true;
         }
 
-        private void getPopbillURL_Click(object sender, EventArgs e)
+        //팝빌 로그인 URL 확인
+        private void getPopbillURL_LOGIN_Click(object sender, EventArgs e)
         {
             try
             {
-                string url = faxService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, cboPopbillTOGO.Text);
+                string url = faxService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "LOGIN");
+
+                MessageBox.Show(url);
+
+            }
+            catch (PopbillException ex)
+            {
+                MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+            }
+
+        }
+
+        //팝빌 포인트충전 팝업 URL 확인
+        private void getPopbillURL_CHRG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string url = faxService.GetPopbillURL(txtCorpNum.Text, txtUserId.Text, "CHRG");
 
                 MessageBox.Show(url);
 
@@ -45,6 +63,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+
+        // 연동회원 가입요청
         private void btnJoinMember_Click(object sender, EventArgs e)
         {
             JoinForm joinInfo = new JoinForm();
@@ -79,6 +99,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+
+        // 잔여포인트 확인
         private void btnGetBalance_Click(object sender, EventArgs e)
         {
 
@@ -96,6 +118,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+        
+        //파트너 잔여포인트 확인
         private void btnGetPartnerBalance_Click(object sender, EventArgs e)
         {
             try
@@ -112,6 +136,7 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+        // 연동회원 가입여부 확인
         private void btnCheckIsMember_Click(object sender, EventArgs e)
         {
             try
@@ -128,6 +153,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+
+        // 팩스 전송단가확인
         private void btnUnitCost_Click(object sender, EventArgs e)
         {
             try
@@ -157,6 +184,7 @@ namespace Popbill.Fax.Example.csharp
         }
 
 
+        //팩스 전송내역 조회 URL 
         private void btnGetURL_Click(object sender, EventArgs e)
         {
             try
@@ -172,6 +200,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+
+        // 팩스전송예약 취소 (예약전송시간 10분전까지 가능)
         private void btnCancelReserve_Click(object sender, EventArgs e)
         {
             try
@@ -188,6 +218,7 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+        // 팩스전송결과확인
         private void btnGetFaxResult_Click(object sender, EventArgs e)
         {
             try
@@ -203,6 +234,8 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+
+        //팩스 전송
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -213,7 +246,8 @@ namespace Popbill.Fax.Example.csharp
 
                 try
                 {
-                    String receiptNum = faxService.SendFAX(txtCorpNum.Text, "070-7510-6766", "111-2222-3333", "수신자 명칭", strFileName, getReserveDT(), txtUserId.Text);
+                    //SendFAX(사업자번호, 발신자번호, 수신팩스번호, 수신자명, 파일경로, 예약전송일시, 회원아이디)
+                    String receiptNum = faxService.SendFAX(txtCorpNum.Text, "070-7510-6766", "02-6442-9700", "수신자 명칭", strFileName, getReserveDT(), txtUserId.Text);
 
                     MessageBox.Show("접수번호 : " + receiptNum);
                     txtReceiptNum.Text = receiptNum;
@@ -226,6 +260,7 @@ namespace Popbill.Fax.Example.csharp
             }
         }
 
+        // 팩스 동보전송
         private void button2_Click(object sender, EventArgs e)
         {
 
@@ -245,6 +280,7 @@ namespace Popbill.Fax.Example.csharp
 
                 try
                 {
+                    //SendFAX(사업자번호, 발신자번호, 수신정보배열, 파일경로, 예약전송일시, 회원아이디)
                     String receiptNum = faxService.SendFAX(txtCorpNum.Text, "070-7510-6766", receivers, strFileName, getReserveDT(), txtUserId.Text);
 
                     MessageBox.Show("접수번호 : " + receiptNum);
@@ -257,6 +293,9 @@ namespace Popbill.Fax.Example.csharp
 
             }
         }
+
+
+        // 다수파일전송
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -272,6 +311,7 @@ namespace Popbill.Fax.Example.csharp
             {
                 try
                 {
+                    //SendFAX(사업자번호, 발신자번호, 수신팩스번호, 수신자명, 파일경로, 예약전송일시, 회원아이디)
                     String receiptNum = faxService.SendFAX(txtCorpNum.Text, "070-7510-6766", "111-2222-3333", "수신자 명칭", filePaths, getReserveDT(), txtUserId.Text);
 
                     MessageBox.Show("접수번호 : " + receiptNum);
@@ -284,6 +324,8 @@ namespace Popbill.Fax.Example.csharp
 
             }
         }
+
+        // 다수파일 동보전송
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -310,6 +352,7 @@ namespace Popbill.Fax.Example.csharp
 
                 try
                 {
+                    //SendFAX(사업자번호, 발신자번호, 수신자정보배열, 파일경로, 예약전송일시, 회원아이디)
                     String receiptNum = faxService.SendFAX(txtCorpNum.Text, "070-7510-6766", receivers, filePaths, getReserveDT(), txtUserId.Text);
 
                     MessageBox.Show("접수번호 : " + receiptNum);
@@ -322,6 +365,5 @@ namespace Popbill.Fax.Example.csharp
 
             }
         }
-
     }
 }
