@@ -14,7 +14,7 @@ namespace Popbill.Message.Example.csharp
         //연동상담시 발급받은 연동아이디
         private string LinkID = "TESTER";
         //연동상담시 발급받은 비밀키
-        private string SecretKey = "OTbVGsQdnLrc8kmmyIXr8W+nX+vDH6tAERiM+DNPFXo=";
+        private string SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=";
 
         private MessageService messageService;
 
@@ -178,6 +178,23 @@ namespace Popbill.Message.Example.csharp
                 float unitCost = messageService.GetUnitCost(txtCorpNum.Text, MessageType.LMS);
 
                 MessageBox.Show(unitCost.ToString());
+
+            }
+            catch (PopbillException ex)
+            {
+                MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+
+            }
+        }
+       
+        // 문자 전송단가 확인 (MMS)
+        private void btnUnitCost_MMS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                float unitCost = messageService.GetUnitCost(txtCorpNum.Text, MessageType.MMS);
+
+                MessageBox.Show("전송단가 : " + unitCost.ToString());
 
             }
             catch (PopbillException ex)
@@ -523,5 +540,106 @@ namespace Popbill.Message.Example.csharp
                 MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
             }
         }
+
+
+        // MMS 1건 전송
+        private void btnSendMMS_one_Click(object sender, EventArgs e)
+        {
+            if (fileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string strFileName = fileDialog.FileName;
+                string senderNum = "07075103710";
+                string receiveNum = "010111222";
+                string receiveName = "수신자명";
+                string subject = "MMS 메시지 제목";
+                string content = "MMS 메시지 내용";
+
+                try
+                {
+                    String receiptNum = messageService.SendMMS(txtCorpNum.Text, senderNum, receiveNum, receiveName,subject,content,strFileName, getReserveDT(), txtUserId.Text);
+
+                    MessageBox.Show("접수번호 : " + receiptNum);
+                    txtReceiptNum.Text = receiptNum;
+                }
+                catch (PopbillException ex)
+                {
+                    MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+                }
+            }
+        }
+
+        // MMS 100건 전송
+        private void btnSendMMS_hund_Click(object sender, EventArgs e)
+        {
+            if (fileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string strFileName = fileDialog.FileName;
+
+                List<Message> messages = new List<Message>();
+
+                for (int i = 0; i < 100; i++)
+                {
+                    Message msg = new Message();
+
+                    msg.sendNum = "07075103710";
+                    msg.receiveNum = "010111222";
+                    msg.receiveName = "수신자명칭_" + i;
+                    msg.subject = "문자메시지 제목";
+                    msg.content = "문자메시지 내용";
+                    messages.Add(msg);
+                }
+
+                try
+                {
+                    String receiptNum = messageService.SendMMS(txtCorpNum.Text, messages, strFileName, getReserveDT(), txtUserId.Text);
+
+                    MessageBox.Show("접수번호 : " + receiptNum);
+                    txtReceiptNum.Text = receiptNum;
+                }
+                catch (PopbillException ex)
+                {
+                    MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+                }
+            }
+        }
+
+        // MMS 동보 전송
+        private void btnSendMMS_Same_Click(object sender, EventArgs e)
+        {
+            if (fileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string strFileName = fileDialog.FileName;
+
+                string senderNum = "07075103710";
+                string subject = "동보메시지 제목";
+                string content = "동보 메시지 내용";
+
+                List<Message> messages = new List<Message>();
+
+                for (int i = 0; i < 100; i++)
+                {
+                    Message msg = new Message();
+
+                    msg.receiveNum = "010111222";
+                    msg.receiveName = "수신자명칭_" + i;
+
+                    messages.Add(msg);
+                }
+
+                try
+                {
+                    String receiptNum = messageService.SendMMS(txtCorpNum.Text, senderNum, subject, content, messages, strFileName, getReserveDT(), txtUserId.Text);
+
+                    MessageBox.Show("접수번호 : " + receiptNum);
+                    txtReceiptNum.Text = receiptNum;
+                }
+                catch (PopbillException ex)
+                {
+                    MessageBox.Show(ex.code.ToString() + " | " + ex.Message);
+                }
+            }
+        }
+
+
     }
 }

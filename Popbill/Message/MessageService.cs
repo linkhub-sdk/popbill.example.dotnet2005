@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 using System.Text;
@@ -98,6 +99,55 @@ namespace Popbill.Message
             return sendMessage(MessageType.XMS, CorpNum, null, null, null, messages, reserveDT, UserID);
         }
 
+        public String SendMMS(String CorpNum, String sendNum, String receiveNum, String receiveName, String subject, String content, String filePath, DateTime? reserveDT, String UserID)
+        {
+            List<Message> messages = new List<Message>();
+            Message msg = new Message();
+            msg.receiveNum = receiveNum;
+            msg.receiveName = receiveName;
+            messages.Add(msg);
+            
+            return SendMMS(CorpNum, sendNum, subject, content, messages, filePath, reserveDT, UserID);
+        }
+
+        public String SendMMS(String CorpNum, List<Message> messages, String filePath, DateTime? reserveDT, String UserID)
+        {
+            
+            return SendMMS(CorpNum, null, null, null, messages, filePath, reserveDT, UserID);
+        }
+        
+        public String SendMMS(String CorpNum, String sender, String subject, String content, List<Message> messages, String filePath, DateTime? reserveDT, String UserID)
+        {
+            if (filePath == null) throw new PopbillException(-99999999, "전송할 파일정보가 입력되지 않았습니다.");
+            
+            List<UploadFile> UploadFiles = new List<UploadFile>();
+
+            
+            UploadFile uf = new UploadFile();
+
+            uf.FieldName = "file";
+            uf.FileName = System.IO.Path.GetFileName(filePath);
+            uf.FileData = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+
+            UploadFiles.Add(uf);
+            
+
+            sendRequest request = new sendRequest();
+
+            request.snd = sender;
+            request.subject = subject;
+            request.content = content;
+            request.sndDT = reserveDT == null ? null : reserveDT.Value.ToString("yyyyMMddHHmmss");
+
+            request.msgs = messages;
+
+            String PostData = toJsonString(request);
+            
+            ReceiptResponse response;
+            response = httppostFile<ReceiptResponse>("/MMS", CorpNum, UserID, PostData, UploadFiles, null);
+
+            return response.receiptNum;
+        }
         public List<MessageResult> GetMessageResult(String CorpNum, String receiptNum)
         {
             if (String.IsNullOrEmpty(receiptNum)) throw new PopbillException(-99999999, "접수번호가 입력되지 않았습니다.");
