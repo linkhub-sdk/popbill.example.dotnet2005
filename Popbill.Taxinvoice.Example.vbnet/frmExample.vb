@@ -281,7 +281,7 @@ Public Class frmExample
         Dim KeyType As MgtKeyType = [Enum].Parse(GetType(MgtKeyType), cboMgtKeyType.Text)
 
         Try
-            Dim response As Response = taxinvoiceService.Send(txtCorpNum.Text, KeyType, txtMgtKey.Text, "발행예정시 메모.", txtUserId.Text)
+            Dim response As Response = taxinvoiceService.Send(txtCorpNum.Text, KeyType, txtMgtKey.Text, "발행예정시 메모.", "발행예정 메일 제목",txtUserId.Text)
 
             MsgBox(response.message)
 

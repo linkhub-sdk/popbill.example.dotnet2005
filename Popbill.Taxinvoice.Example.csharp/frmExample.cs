@@ -9,7 +9,7 @@ namespace Popbill.Taxinvoice.Example.csharp
         //연동상담시 발급받은 연동아이디
         private string LinkID = "TESTER";
         //연동상담시 발급받은 비밀키
-        private string SecretKey = "OTbVGsQdnLrc8kmmyIXr8W+nX+vDH6tAERiM+DNPFXo=";
+        private string SecretKey = "SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=";
 
         private TaxinvoiceService taxinvoiceService;
 
@@ -217,7 +217,7 @@ namespace Popbill.Taxinvoice.Example.csharp
         {
             Taxinvoice taxinvoice = new Taxinvoice();
 
-            taxinvoice.writeDate = "20150203";                      //필수, 기재상 작성일자
+            taxinvoice.writeDate = "20150615";                      //필수, 기재상 작성일자
             taxinvoice.chargeDirection = "정과금";                  //필수, {정과금, 역과금}
             taxinvoice.issueType = "정발행";                        //필수, {정발행, 역발행, 위수탁}
             taxinvoice.purposeType = "영수";                        //필수, {영수, 청구}
@@ -342,10 +342,14 @@ namespace Popbill.Taxinvoice.Example.csharp
         private void btnSend_Click(object sender, EventArgs e)
         {
             MgtKeyType KeyType = (MgtKeyType)Enum.Parse(typeof(MgtKeyType), cboMgtKeyType.Text);
+            String Memo = "발행예정시 메모.";
+            
+            //발행예정 메일 제목, 공백기재시 기본제목으로 전송됨.
+            String EmailSubject = ""; 
 
             try
             {
-                Response response = taxinvoiceService.Send(txtCorpNum.Text, KeyType, txtMgtKey.Text, "발행예정시 메모.", txtUserId.Text);
+                Response response = taxinvoiceService.Send(txtCorpNum.Text, KeyType, txtMgtKey.Text, Memo, EmailSubject, txtUserId.Text);
 
                 MessageBox.Show(response.message);
 
