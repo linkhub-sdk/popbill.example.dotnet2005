@@ -169,6 +169,8 @@ namespace Popbill
             }
 
             request.Headers.Add("x-lh-version", APIVersion);
+            request.Headers.Add("Accept-Encoding", "gzip");
+            request.AutomaticDecompression = DecompressionMethods.GZip;
 
             if (String.IsNullOrEmpty(UserID) == false)
             {
@@ -181,9 +183,7 @@ namespace Popbill
             {
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream stReadData = response.GetResponseStream();
-
                 return fromJson<T>(stReadData);
-
             }
             catch (Exception we)
             {
@@ -194,6 +194,10 @@ namespace Popbill
                     throw new PopbillException(t["code"], t["message"]);
                 }
                 throw new PopbillException(-99999999, we.Message);
+            }
+            finally
+            {
+                request.Abort();
             }
 
         }
@@ -212,6 +216,8 @@ namespace Popbill
             }
 
             request.Headers.Add("x-lh-version", APIVersion);
+            request.Headers.Add("Accept-Encoding", "gzip");
+            request.AutomaticDecompression = DecompressionMethods.GZip;
 
             if (String.IsNullOrEmpty(UserID) == false)
             {
@@ -237,9 +243,7 @@ namespace Popbill
             {
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Stream stReadData = response.GetResponseStream();
-
                 return fromJson<T>(stReadData);
-
             }
             catch (Exception we)
             {
@@ -250,6 +254,10 @@ namespace Popbill
                     throw new PopbillException(t["code"], t["message"]);
                 }
                 throw new PopbillException(-99999999, we.Message);
+            }
+            finally
+            {
+                request.Abort();
             }
         }
 

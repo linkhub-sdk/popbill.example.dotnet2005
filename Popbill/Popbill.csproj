@@ -64,6 +64,7 @@
     <Compile Include="Taxinvoice\TaxinvoiceInfo.cs" />
     <Compile Include="Taxinvoice\TaxinvoiceLog.cs" />
     <Compile Include="Taxinvoice\TaxinvoiceService.cs" />
+    <Compile Include="Taxinvoice\TISearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Linkhub\Linkhub.csproj">

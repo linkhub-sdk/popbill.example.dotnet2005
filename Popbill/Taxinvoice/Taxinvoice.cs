@@ -6,7 +6,16 @@ namespace Popbill.Taxinvoice
     
     public class Taxinvoice
     {
-        
+        public int closeDownState;
+        public String closeDownStateDate;
+
+        public String memo;
+        public String emailSubject;
+        public String dealnvoiceMgtKey;
+
+        public bool? forceIssue;
+        public bool? writeSpecification;
+
         public String writeDate;
         
         public String chargeDirection;

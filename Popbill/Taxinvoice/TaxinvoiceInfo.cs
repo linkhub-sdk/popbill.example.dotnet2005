@@ -7,6 +7,9 @@ namespace Popbill.Taxinvoice
     
     public class TaxinvoiceInfo
     {
+        public int closeDownState;
+        public String closeDownStateDate;
+
         public String itemKey;
         public String taxType;
         public String writeDate;
@@ -15,9 +18,11 @@ namespace Popbill.Taxinvoice
         public String invoicerCorpName;
         public String invoicerCorpNum;
         public String invoicerMgtKey;
+        public bool? invoicerPrintYN;
         public String invoiceeCorpName;
         public String invoiceeCorpNum;
         public String invoiceeMgtKey;
+        public bool? invoiceePrintYN;
         public String trusteeCorpName;
         public String trusteeCorpNum;
         public String trusteeMgtKey;
@@ -30,6 +35,7 @@ namespace Popbill.Taxinvoice
 
         public String issueDT;
         public String preIssueDT;
+        public bool? lateIssueYN;
 
         public int stateCode;
         public String stateDT;
