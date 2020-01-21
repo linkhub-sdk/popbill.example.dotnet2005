@@ -30,6 +30,5 @@ namespace Popbill.Message
         public string SendDT { get { return sendDT; } }
         public string ResultDT { get { return resultDT; } }
         public string SendResult { get { return sendResult; } }
-
     }
 }

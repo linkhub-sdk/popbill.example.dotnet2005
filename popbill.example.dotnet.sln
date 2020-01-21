@@ -27,6 +27,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Popbill.Statement.Example.v
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popbill.Closedown.Example.csharp", "Popbill.Closedown.Example.csharp\Popbill.Closedown.Example.csharp.csproj", "{AE434764-F8AC-45A2-9038-BF1237016FA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popbill.EasyFin.Bank.Example.csharp", "Popbill.EasyFin.Bank.Example.csharp\Popbill.EasyFin.Bank.Example.csharp.csproj", "{16478506-89E2-423B-A5C2-8AA5228FA9CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{AE434764-F8AC-45A2-9038-BF1237016FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE434764-F8AC-45A2-9038-BF1237016FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE434764-F8AC-45A2-9038-BF1237016FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16478506-89E2-423B-A5C2-8AA5228FA9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16478506-89E2-423B-A5C2-8AA5228FA9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16478506-89E2-423B-A5C2-8AA5228FA9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16478506-89E2-423B-A5C2-8AA5228FA9CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
