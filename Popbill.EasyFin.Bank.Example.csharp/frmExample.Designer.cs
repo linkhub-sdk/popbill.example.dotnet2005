@@ -64,6 +64,11 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             this.btnListJobState = new System.Windows.Forms.Button();
             this.btnGetJobState = new System.Windows.Forms.Button();
             this.btnRequestJob = new System.Windows.Forms.Button();
+            this.btnRegistBankAccount = new System.Windows.Forms.Button();
+            this.btnUpdateBankAccount = new System.Windows.Forms.Button();
+            this.btnGetBankAccountInfo = new System.Windows.Forms.Button();
+            this.btnCloseBankAccount = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.GroupBox1.SuspendLayout();
             this.GroupBox6.SuspendLayout();
             this.GroupBox5.SuspendLayout();
@@ -92,7 +97,7 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             this.GroupBox1.Controls.Add(this.GroupBox2);
             this.GroupBox1.Location = new System.Drawing.Point(22, 43);
             this.GroupBox1.Name = "GroupBox1";
-            this.GroupBox1.Size = new System.Drawing.Size(916, 108);
+            this.GroupBox1.Size = new System.Drawing.Size(948, 108);
             this.GroupBox1.TabIndex = 16;
             this.GroupBox1.TabStop = false;
             this.GroupBox1.Text = "팝빌 기본 API";
@@ -248,7 +253,7 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             this.groupBox4.Controls.Add(this.groupBox7);
             this.groupBox4.Location = new System.Drawing.Point(22, 160);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(916, 433);
+            this.groupBox4.Size = new System.Drawing.Size(948, 433);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "계좌조회 API";
@@ -275,7 +280,7 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(17, 222);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(881, 196);
+            this.listBox1.Size = new System.Drawing.Size(918, 196);
             this.listBox1.TabIndex = 6;
             // 
             // label3
@@ -298,7 +303,7 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             // 
             this.groupBox10.Controls.Add(this.btnGetFlatRateState);
             this.groupBox10.Controls.Add(this.btnGetFlatRatePopUpURL);
-            this.groupBox10.Location = new System.Drawing.Point(499, 26);
+            this.groupBox10.Location = new System.Drawing.Point(762, 26);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(173, 157);
             this.groupBox10.TabIndex = 3;
@@ -327,20 +332,25 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.button1);
+            this.groupBox9.Controls.Add(this.btnCloseBankAccount);
+            this.groupBox9.Controls.Add(this.btnGetBankAccountInfo);
+            this.groupBox9.Controls.Add(this.btnUpdateBankAccount);
+            this.groupBox9.Controls.Add(this.btnRegistBankAccount);
             this.groupBox9.Controls.Add(this.btnListBankAccount);
             this.groupBox9.Controls.Add(this.btnGetBankAccountMgtURL);
             this.groupBox9.Location = new System.Drawing.Point(336, 26);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(153, 157);
+            this.groupBox9.Size = new System.Drawing.Size(416, 157);
             this.groupBox9.TabIndex = 2;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "계좌 관리";
             // 
             // btnListBankAccount
             // 
-            this.btnListBankAccount.Location = new System.Drawing.Point(6, 61);
+            this.btnListBankAccount.Location = new System.Drawing.Point(141, 61);
             this.btnListBankAccount.Name = "btnListBankAccount";
-            this.btnListBankAccount.Size = new System.Drawing.Size(136, 34);
+            this.btnListBankAccount.Size = new System.Drawing.Size(121, 34);
             this.btnListBankAccount.TabIndex = 5;
             this.btnListBankAccount.Text = "계좌 목록 확인";
             this.btnListBankAccount.UseVisualStyleBackColor = true;
@@ -348,9 +358,9 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             // 
             // btnGetBankAccountMgtURL
             // 
-            this.btnGetBankAccountMgtURL.Location = new System.Drawing.Point(6, 20);
+            this.btnGetBankAccountMgtURL.Location = new System.Drawing.Point(6, 101);
             this.btnGetBankAccountMgtURL.Name = "btnGetBankAccountMgtURL";
-            this.btnGetBankAccountMgtURL.Size = new System.Drawing.Size(136, 34);
+            this.btnGetBankAccountMgtURL.Size = new System.Drawing.Size(129, 34);
             this.btnGetBankAccountMgtURL.TabIndex = 4;
             this.btnGetBankAccountMgtURL.Text = "계좌 관리 팝업 URL";
             this.btnGetBankAccountMgtURL.UseVisualStyleBackColor = true;
@@ -440,11 +450,61 @@ namespace Popbill.EasyFin.Bank.Example.csharp
             this.btnRequestJob.UseVisualStyleBackColor = true;
             this.btnRequestJob.Click += new System.EventHandler(this.btnRequestJob_Click);
             // 
+            // btnRegistBankAccount
+            // 
+            this.btnRegistBankAccount.Location = new System.Drawing.Point(6, 20);
+            this.btnRegistBankAccount.Name = "btnRegistBankAccount";
+            this.btnRegistBankAccount.Size = new System.Drawing.Size(129, 34);
+            this.btnRegistBankAccount.TabIndex = 6;
+            this.btnRegistBankAccount.Text = "계좌 등록";
+            this.btnRegistBankAccount.UseVisualStyleBackColor = true;
+            this.btnRegistBankAccount.Click += new System.EventHandler(this.btnRegistBankAccount_Click);
+            // 
+            // btnUpdateBankAccount
+            // 
+            this.btnUpdateBankAccount.Location = new System.Drawing.Point(6, 60);
+            this.btnUpdateBankAccount.Name = "btnUpdateBankAccount";
+            this.btnUpdateBankAccount.Size = new System.Drawing.Size(129, 34);
+            this.btnUpdateBankAccount.TabIndex = 7;
+            this.btnUpdateBankAccount.Text = "계좌정보 수정";
+            this.btnUpdateBankAccount.UseVisualStyleBackColor = true;
+            this.btnUpdateBankAccount.Click += new System.EventHandler(this.btnUpdateBankAccount_Click);
+            // 
+            // btnGetBankAccountInfo
+            // 
+            this.btnGetBankAccountInfo.Location = new System.Drawing.Point(141, 20);
+            this.btnGetBankAccountInfo.Name = "btnGetBankAccountInfo";
+            this.btnGetBankAccountInfo.Size = new System.Drawing.Size(121, 34);
+            this.btnGetBankAccountInfo.TabIndex = 8;
+            this.btnGetBankAccountInfo.Text = "계좌정보 확인";
+            this.btnGetBankAccountInfo.UseVisualStyleBackColor = true;
+            this.btnGetBankAccountInfo.Click += new System.EventHandler(this.btnGetBankAccountInfo_Click);
+            // 
+            // btnCloseBankAccount
+            // 
+            this.btnCloseBankAccount.Location = new System.Drawing.Point(268, 20);
+            this.btnCloseBankAccount.Name = "btnCloseBankAccount";
+            this.btnCloseBankAccount.Size = new System.Drawing.Size(138, 34);
+            this.btnCloseBankAccount.TabIndex = 9;
+            this.btnCloseBankAccount.Text = "계좌 정액제 해지요청";
+            this.btnCloseBankAccount.UseVisualStyleBackColor = true;
+            this.btnCloseBankAccount.Click += new System.EventHandler(this.btnCloseBankAccount_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(268, 61);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(138, 34);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "정액제 해지요청 취소";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmExample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(968, 622);
+            this.ClientSize = new System.Drawing.Size(1042, 622);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.txtUserId);
             this.Controls.Add(this.GroupBox1);
@@ -508,6 +568,11 @@ namespace Popbill.EasyFin.Bank.Example.csharp
         private System.Windows.Forms.Button btnListBankAccount;
         private System.Windows.Forms.Button btnGetFlatRateState;
         private System.Windows.Forms.Button btnGetFlatRatePopUpURL;
+        private System.Windows.Forms.Button btnRegistBankAccount;
+        private System.Windows.Forms.Button btnUpdateBankAccount;
+        private System.Windows.Forms.Button btnGetBankAccountInfo;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCloseBankAccount;
     }
 }
 
